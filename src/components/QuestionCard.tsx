@@ -10,7 +10,7 @@ interface QuestionCard {
     createdAt: string
 }
 
-const QuestionCard: React.FC<QuestionCard> = (props) => {
+const QuestionCard = (props: QuestionCard) => {
     const { _id, title, isPublished, isStar, answerCount, createdAt } = props
     return <div className={styles.container}>
         <div className={styles.title}>

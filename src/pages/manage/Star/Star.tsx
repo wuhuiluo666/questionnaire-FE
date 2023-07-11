@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Star: React.FC = () => {
+const Star = () => {
     return <>
         Star
     </>

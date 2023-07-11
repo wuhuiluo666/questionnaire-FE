@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Static: React.FC = () => {
+const Static = () => {
     return <>
         Home
     </>

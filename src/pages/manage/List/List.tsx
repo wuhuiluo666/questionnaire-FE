@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import QuestionCard from '../components/QuestionCard'
+import QuestionCard from '../../../components/QuestionCard'
 import styles from './List.module.scss'
 
 const mockList = [
@@ -37,7 +37,7 @@ const mockList = [
     },
 ]
 
-const List: React.FC = () => {
+const List = () => {
     const [questionList, setQuestionList] = useState(mockList)
     return <>
         <div className={styles.header}>

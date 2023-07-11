@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Register: React.FC = () => {
+const Register = () => {
     return <>
         Register
     </>

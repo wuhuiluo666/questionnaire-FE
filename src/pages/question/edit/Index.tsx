@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Edit: React.FC = () => {
+const Edit = () => {
     return <>
         Edit
     </>
