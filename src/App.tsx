@@ -1,9 +1,10 @@
 import React from 'react';
+import List from './pages/List';
 
 function App() {
   return (
     <div className="App">
-      问卷FE
+      <List />
     </div>
   );
 }

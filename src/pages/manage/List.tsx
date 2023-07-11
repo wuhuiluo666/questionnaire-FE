@@ -1,38 +1,39 @@
 import React, { useState } from 'react'
+import QuestionCard from '../components/QuestionCard'
 import styles from './List.module.scss'
 
 const mockList = [
     {
-        id: 'q1',
+        _id: 'q1',
         title: '问卷1',
-        isPublished: false,
+        isPublished: true,
         isStar: false,
         answerCount: 5,
-        createAt: '3月10日 13:23'
+        createdAt: '3月15日 13:23'
     },
     {
-        id: 'q2',
+        _id: 'q2',
         title: '问卷2',
         isPublished: false,
         isStar: false,
-        answerCount: 5,
-        createAt: '3月10日 13:23'
+        answerCount: 15,
+        createdAt: '3月14日 13:23'
     },
     {
-        id: 'q3',
+        _id: 'q3',
         title: '问卷3',
         isPublished: false,
         isStar: false,
-        answerCount: 5,
-        createAt: '3月10日 13:23'
+        answerCount: 25,
+        createdAt: '3月12日 13:23'
     },
     {
-        id: 'q4',
+        _id: 'q4',
         title: '问卷4',
-        isPublished: false,
+        isPublished: true,
         isStar: false,
-        answerCount: 5,
-        createAt: '3月10日 13:23'
+        answerCount: 35,
+        createdAt: '3月13日 13:23'
     },
 ]
 
@@ -47,7 +48,14 @@ const List: React.FC = () => {
                 (搜索)
             </div>
         </div>
-        <div className={styles.content}>content</div>
+        <div className={styles.content}>
+            {
+                questionList?.map(question => {
+                    const { _id } = question
+                    return <QuestionCard {...question} />
+                })
+            }
+        </div>
         <div className={styles.footer}>footer</div>
     </>
 }
