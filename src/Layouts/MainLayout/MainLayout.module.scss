@@ -1,13 +1,8 @@
 .header {
   padding: 0 24px;
-
-  .left {
-    float: left;
-  }
-
-  .right {
-    float: right;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .main {

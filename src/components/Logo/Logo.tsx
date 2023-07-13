@@ -2,11 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FormOutlined } from '@ant-design/icons'
 import { Space, Typography } from 'antd'
-import './Logo.module.scss'
+import styles from './Logo.module.scss'
 
 const Logo = () => {
     return (
-        <div>
+        <div className={styles.logo}>
             <Link to={"/"}>
                 <Space>
                     <Typography.Title>

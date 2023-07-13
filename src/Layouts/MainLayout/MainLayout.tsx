@@ -2,6 +2,8 @@ import React from 'react'
 import styles from './MainLayout.module.scss'
 import { Outlet } from 'react-router-dom'
 import { Layout } from 'antd'
+import Logo from '../../components/Logo/Logo'
+import UserInfo from '../../components/UserInfo/UserInfo'
 
 const { Header, Content, Footer } = Layout
 
@@ -9,8 +11,12 @@ const MainLayout = () => {
     return (
         <Layout>
             <Header className={styles.header}>
-                <div className={styles.left}>Logo</div>
-                <div className={styles.right}>123</div>
+                <div>
+                    <Logo />
+                </div>
+                <div>
+                    <UserInfo />
+                </div>
             </Header>
             <Layout className={styles.main}>
                 <Content>{<Outlet />}</Content>
