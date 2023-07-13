@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import QuestionCard from '../../../components/QuestionCard'
-import styles from './List.module.scss'
+import styles from '../common.module.scss'
 
 const mockList = [
     {
@@ -31,7 +31,7 @@ const mockList = [
         _id: 'q4',
         title: '问卷4',
         isPublished: true,
-        isStar: false,
+        isStar: true,
         answerCount: 35,
         createdAt: '3月13日 13:23'
     },
@@ -48,15 +48,16 @@ const List = () => {
                 (搜索)
             </div>
         </div>
-        <div className={styles.content}>
+        <div>
+            {/* 问卷列表 */}
             {
-                questionList?.map(question => {
+                questionList.length > 0 && questionList?.map(question => {
                     const { _id } = question
-                    return <QuestionCard {...question} />
+                    return <QuestionCard key={_id} {...question} />
                 })
             }
         </div>
-        <div className={styles.footer}>footer</div>
+        <div className={styles.footer}>LoadMore... 加载更多...</div>
     </>
 }
 
