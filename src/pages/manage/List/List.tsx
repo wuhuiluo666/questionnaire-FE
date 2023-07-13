@@ -47,7 +47,7 @@ const List = () => {
     return <>
         <div className={styles.header}>
             <div className={styles.left}>
-                <Title level={3}></Title>
+                <Title level={3}>问卷列表</Title>
             </div>
             <div className={styles.right}>
                 (搜索)
@@ -56,7 +56,7 @@ const List = () => {
         <div>
             {/* 问卷列表 */}
             {
-                questionList.length > 0 && questionList?.map(question => {
+                questionList.length > 0 && questionList.map(question => {
                     const { _id } = question
                     return <QuestionCard key={_id} {...question} />
                 })
