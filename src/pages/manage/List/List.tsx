@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import QuestionCard from '../../../components/QuestionCard'
+import { Typography } from 'antd'
 import styles from '../common.module.scss'
+import { useTitle } from 'ahooks'
+
+const { Title } = Typography
 
 const mockList = [
     {
@@ -38,11 +42,12 @@ const mockList = [
 ]
 
 const List = () => {
+    useTitle("问卷系统-列表")
     const [questionList, setQuestionList] = useState(mockList)
     return <>
         <div className={styles.header}>
             <div className={styles.left}>
-                <h3>问卷列表</h3>
+                <Title level={3}></Title>
             </div>
             <div className={styles.right}>
                 (搜索)

@@ -1,8 +1,9 @@
 import React from 'react'
 import styles from './QuestionCard.module.scss'
-import { Space, Button } from 'antd'
-import { CopyOutlined, DeleteOutlined, EditOutlined, LineChartOutlined, StarOutlined } from '@ant-design/icons'
+import { Space, Button, Divider, Tag, Popconfirm, Modal, message } from 'antd'
+import { CopyOutlined, DeleteOutlined, EditOutlined, ExclamationCircleOutlined, LineChartOutlined, StarOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
+
 
 interface QuestionCard {
     _id: string
@@ -16,6 +17,16 @@ interface QuestionCard {
 const QuestionCard = (props: QuestionCard) => {
     const nav = useNavigate()
     const { _id, title, isPublished, isStar, answerCount, createdAt } = props
+    const deleteConfirm = () => {
+        Modal.confirm({
+            title: '确认要删除问卷吗?',
+            icon: <ExclamationCircleOutlined />,
+            onOk: () => message.success('删除成功')
+        })
+    }
+    const confirm = () => {
+        message.success('复制成功')
+    }
     return <div className={styles.container}>
         <div className={styles.title}>
             <div className={styles.left}>
@@ -28,13 +39,14 @@ const QuestionCard = (props: QuestionCard) => {
                 </Link>
             </div>
             <div className={styles.right}>
-                {isPublished ? <span style={{ color: 'green' }}>已发布</span> : <span>未发布</span>}
-                &nbsp;
-                <span>问卷: {answerCount}</span>
-                &nbsp;
-                <span>{createdAt}</span>
+                <Space>
+                    {isPublished ? <Tag color={'processing'}>已发布</Tag> : <Tag>未发布</Tag>}
+                    <span>问卷: {answerCount}</span>
+                    <span>{createdAt}</span>
+                </Space>
             </div>
         </div>
+        <Divider style={{ margin: '12px 0' }} />
         <div className={styles['button-container']}>
             <div className={styles.left}>
                 <Space>
@@ -51,10 +63,17 @@ const QuestionCard = (props: QuestionCard) => {
                     <Button icon={<StarOutlined />} size={'small'} type={'text'}>
                         {isStar ? '取消标星' : '标星'}
                     </Button>
-                    <Button icon={<CopyOutlined />} size={'small'} type={'text'}>
-                        复制
-                    </Button>
-                    <Button icon={<DeleteOutlined />} size={'small'} type={'text'}>删除</Button>
+                    <Popconfirm
+                        title={'确定要复制问卷吗?'}
+                        okText={'确定'}
+                        cancelText={'取消'}
+                        onConfirm={confirm}
+                    >
+                        <Button icon={<CopyOutlined />} size={'small'} type={'text'}>
+                            复制
+                        </Button>
+                    </Popconfirm>
+                    <Button onClick={deleteConfirm} icon={<DeleteOutlined />} size={'small'} type={'text'}>删除</Button>
                 </Space>
             </div>
         </div>
