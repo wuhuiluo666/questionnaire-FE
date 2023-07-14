@@ -3,6 +3,7 @@ import QuestionCard from '../../../components/QuestionCard'
 import { Typography } from 'antd'
 import styles from '../common.module.scss'
 import { useTitle } from 'ahooks'
+import InputSearch from '../../../components/InputSearch/InputSearch'
 
 const { Title } = Typography
 
@@ -47,10 +48,10 @@ const List = () => {
     return <>
         <div className={styles.header}>
             <div className={styles.left}>
-                <Title level={3}>问卷列表</Title>
+                <Title style={{ margin: '0 0'}} level={3}>问卷列表</Title>
             </div>
             <div className={styles.right}>
-                (搜索)
+                <InputSearch />
             </div>
         </div>
         <div>
