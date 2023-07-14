@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from '../common.module.scss'
-import { Typography, Table, Tag, Empty } from 'antd'
+import { Typography, Table, Tag, Empty, Space, Button,Modal } from 'antd'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 
 const { Title } = Typography
 
@@ -53,6 +54,29 @@ const tableColumns = [
 
 const Trash = () => {
     const [tableArray, setTableArray] = useState(tableList)
+    const [selectKeys, setSelectKeys] = useState<string[]>([])
+    const deleteArray = () => {
+        Modal.confirm({
+            title: '确定彻底删除该问卷?',
+            content: '删除以后无法找回',
+            icon: <ExclamationCircleOutlined />,
+            onOk: () => alert(JSON.stringify(selectKeys))
+        })
+    }
+    const TableElement = (
+        <>
+            <Space>
+                <Button type={'primary'} size={'large'} disabled={selectKeys.length === 0}>恢复</Button>
+                <Button onClick={deleteArray} type={'default'} size={'large'} danger disabled={selectKeys.length === 0}>彻底删除</Button>
+            </Space>
+            <Table
+                rowSelection={{ type: 'checkbox', onChange: (selectedRowKeys) => setSelectKeys(selectedRowKeys as string[]) }}
+                rowKey={(q: any) => q._id}
+                pagination={false}
+                dataSource={tableArray}
+                columns={tableColumns} /></>
+    )
+
     return <>
         <div className={styles.header}>
             <div className={styles.left}>
@@ -64,7 +88,7 @@ const Trash = () => {
         </div>
         <div>
             {
-                tableArray.length > 0 ? <Table rowKey={q => q._id} pagination={false} dataSource={tableArray} columns={tableColumns} /> : <Empty description={'暂无数据'} />
+                tableArray.length > 0 ? TableElement : <Empty description={'暂无数据'} />
             }
         </div>
     </>
