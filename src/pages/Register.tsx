@@ -7,6 +7,9 @@ import { Link } from 'react-router-dom'
 const { Title } = Typography
 
 const Register = () => {
+    const onFinish = (values: any) => {
+        console.log('values', values)
+    }
     return <div className={styles['register-container']}>
         <Space>
             <Title level={2}>
@@ -16,7 +19,7 @@ const Register = () => {
                 注册新用户
             </Title>
         </Space>
-        <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
+        <Form onFinish={onFinish} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
             <Form.Item label={'用户名'} name={'username'}>
                 <Input />
             </Form.Item>
