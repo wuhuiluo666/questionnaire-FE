@@ -1,11 +1,74 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Button, Checkbox, Input, Space, Typography } from 'antd'
+import styles from './Login.module.scss'
+import { UserAddOutlined } from '@ant-design/icons'
+import { Form } from 'antd'
+import { Link } from 'react-router-dom'
+
+const { Title } = Typography
+const USERNAME_KEY = 'username'
+const PASSWORD_KEY = 'password'
+
+const rememberUser = (username: string, password: string) => {
+    localStorage.setItem(USERNAME_KEY, username)
+    localStorage.setItem(PASSWORD_KEY, password)
+}
+
+const deleteUser = () => {
+    localStorage.removeItem(USERNAME_KEY)
+    localStorage.removeItem(PASSWORD_KEY)
+}
+
+const getUserInfo = () => (
+    {
+        username: localStorage.getItem(USERNAME_KEY),
+        password: localStorage.getItem(PASSWORD_KEY)
+    }
+)
 
 const Login = () => {
-    const nav = useNavigate()
-    return <div>
-        <p>login</p>
-        <button onClick={() => nav(-1)}>返回</button>
+    const [form] = Form.useForm()
+    const onFinish = (values: any) => {
+        const { username, password, remember } = values
+        if (remember) {
+            rememberUser(username, password)
+        } else {
+            deleteUser()
+        }
+    }
+    useEffect(() => {
+        const { username, password } = getUserInfo()
+        form.setFieldsValue({
+            username,
+            password
+        })
+    }, [])
+    return <div className={styles['login-container']}>
+        <Space>
+            <Title>
+                <UserAddOutlined />
+            </Title>
+            <Title>
+                用户登录
+            </Title>
+        </Space>
+        <Form form={form} onFinish={onFinish} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
+            <Form.Item label={'用户名'} name={'username'}>
+                <Input />
+            </Form.Item>
+            <Form.Item label={'密码'} name={'password'}>
+                <Input.Password />
+            </Form.Item>
+            <Form.Item name={'remember'} valuePropName={'checked'} wrapperCol={{ offset: 8, span: 16 }}>
+                <Checkbox>记住我</Checkbox>
+            </Form.Item>
+            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                <Button htmlType={'submit'} type={'primary'}>登录</Button>
+            </Form.Item>
+            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                <Link to={'/reigster'}></Link>
+            </Form.Item>
+        </Form>
     </div>
 }
 
