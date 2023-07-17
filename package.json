@@ -13,6 +13,8 @@
     "@types/react-dom": "^18.2.6",
     "ahooks": "^3.7.8",
     "antd": "^5.7.0",
+    "axios": "^1.4.0",
+    "mockjs": "^1.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.1",
@@ -46,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@types/mockjs": "^1.0.7",
     "typescript-plugin-css-modules": "^5.0.1"
   }
 }

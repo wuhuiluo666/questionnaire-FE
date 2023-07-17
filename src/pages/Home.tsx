@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Typography } from 'antd'
 import styles from './Home.module.scss'
+import '../_mock/index' // mockjs
+import axios from 'axios'
 
 const Home = () => {
     const nav = useNavigate()
+    useEffect(() => {
+        axios.get('/api/test').then(res => console.log('res', res))
+    }, [])
     return <div className={styles.container}>
         <div className={styles.info}>
             <Typography.Title>问卷调查 | 在线投票</Typography.Title>

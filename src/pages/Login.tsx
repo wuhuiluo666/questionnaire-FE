@@ -53,10 +53,20 @@ const Login = () => {
             </Title>
         </Space>
         <Form form={form} onFinish={onFinish} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
-            <Form.Item label={'用户名'} name={'username'}>
+            <Form.Item rules={[
+                {
+                    required: true,
+                    message: '请输入用户名'
+                }
+            ]} label={'用户名'} name={'username'}>
                 <Input />
             </Form.Item>
-            <Form.Item label={'密码'} name={'password'}>
+            <Form.Item rules={[
+                {
+                    required: true,
+                    message: '请输入密码'
+                }
+            ]} label={'密码'} name={'password'}>
                 <Input.Password />
             </Form.Item>
             <Form.Item name={'remember'} valuePropName={'checked'} wrapperCol={{ offset: 8, span: 16 }}>
@@ -66,7 +76,7 @@ const Login = () => {
                 <Button htmlType={'submit'} type={'primary'}>登录</Button>
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Link to={'/reigster'}></Link>
+                <Link to={'/reigster'}>还没有账号呢？去注册~</Link>
             </Form.Item>
         </Form>
     </div>
