@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
+import axios from 'axios'
+import styles from './Home.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { Button, Typography } from 'antd'
-import styles from './Home.module.scss'
-import '../_mock/index' // mockjs
-import axios from 'axios'
 
 const Home = () => {
     const nav = useNavigate()
