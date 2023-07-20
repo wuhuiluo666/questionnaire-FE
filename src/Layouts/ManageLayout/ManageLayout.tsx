@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './ManageLayout.module.scss'
 import { Outlet } from 'react-router-dom'
 import { Button, Divider, message, Space } from 'antd'
 import { PlusOutlined, BarsOutlined, StarOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { createNewQuestion } from '../../services/question'
+import { useRequest } from 'ahooks'
 
 const ManageLayout = () => {
     const { pathname } = useLocation()
-    const [loading, setLoading] = useState(false)
     const nav = useNavigate()
-    const createQuestion = async () => {
-        setLoading(true)
-        const data = await createNewQuestion()
-        nav(`/question/edit/${data.id}`)
-        message.success('创建成功')
-        setLoading(false)
-    }
+    const { run: createQuestion, loading, error } = useRequest(createNewQuestion, {
+        manual: true,
+        onSuccess: (result) => {
+            nav(`/question/edit/${result.id}`)
+            message.success('创建成功')
+        }
+    })
     return <div className={styles.container}>
         <div className={styles.left}>
             <Space direction={'vertical'}>

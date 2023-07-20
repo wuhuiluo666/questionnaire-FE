@@ -1,7 +1,7 @@
 import instance, { ResDataType } from './ajax'
 
 // 获取问卷详情
-export const getQuestionDetail = async (id: string) => {
+export const getQuestionDetail = async (id: string): Promise<ResDataType> => {
     const url = `/api/question/${id}`
     const data = (await instance.get(url)) as ResDataType
     return data

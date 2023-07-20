@@ -1,18 +1,11 @@
-import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { getQuestionDetail } from '../../../services/question'
+import React from 'react'
+import { useLoadQuestionData } from '../../../hooks/useLoadQuestionData'
+
 
 const Edit = () => {
-    const { id = '' } = useParams()
-    useEffect(() => {
-        const fn = async () => {
-            const data = await getQuestionDetail(id)
-            console.log('data',data)
-        }
-        fn()
-    }, [])
+    const { loading, error, data } = useLoadQuestionData()
     return <>
-        Edit {id}
+        {loading ? <p>加载中</p> : <p>{JSON.stringify(data)}</p>}
     </>
 }
 
