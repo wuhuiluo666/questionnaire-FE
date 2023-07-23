@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import styles from '../common.module.scss'
-import { Typography, Table, Tag, Empty, Space, Button,Modal } from 'antd'
+import { Typography, Table, Tag, Empty, Space, Button, Modal, Spin } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
+import { useSearchList } from '../../../hooks/useSearchList'
+import InputSearch from '../../../components/InputSearch/InputSearch'
 
 const { Title } = Typography
 
@@ -53,7 +55,7 @@ const tableColumns = [
 ]
 
 const Trash = () => {
-    const [tableArray, setTableArray] = useState(tableList)
+    const { list, total, loading, error } = useSearchList(false, true)
     const [selectKeys, setSelectKeys] = useState<string[]>([])
     const deleteArray = () => {
         Modal.confirm({
@@ -73,7 +75,7 @@ const Trash = () => {
                 rowSelection={{ type: 'checkbox', onChange: (selectedRowKeys) => setSelectKeys(selectedRowKeys as string[]) }}
                 rowKey={(q: any) => q._id}
                 pagination={false}
-                dataSource={tableArray}
+                dataSource={list}
                 columns={tableColumns} /></>
     )
 
@@ -83,12 +85,13 @@ const Trash = () => {
                 <Title level={3}>回收站</Title>
             </div>
             <div className={styles.right}>
-                搜索()
+                <InputSearch />
             </div>
         </div>
         <div>
+            {loading && <Spin size={'large'} style={{ position: 'absolute', left: '50%', top: '50%' }} />}
             {
-                tableArray.length > 0 ? TableElement : <Empty description={'暂无数据'} />
+                (!loading && list.length > 0)  && TableElement
             }
         </div>
     </>

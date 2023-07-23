@@ -1,24 +1,26 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { useNavigate, useLocation, useSearchParams } from 'react-router-dom'
 import { Input } from 'antd'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 
 const { Search } = Input
 
 const InputSearch = () => {
+    const [value, setValue] = useState('')
     const nav = useNavigate()
     const { pathname } = useLocation()
-    const [value, setValue] = useState('')
     const [searchParams] = useSearchParams()
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value)
-    }
+    // 回车之后才跳转
     const handleSearch = (value: string) => {
-        console.log(pathname)
         nav({
             pathname,
             search: `keyword=${value}`
         })
     }
+    // 改变就赋值
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setValue(e.target.value)
+    }
+    // 路由变了就赋值value
     useEffect(() => {
         setValue(searchParams.get('keyword') || '')
     }, [searchParams])

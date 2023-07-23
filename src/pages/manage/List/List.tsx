@@ -2,16 +2,16 @@ import React from 'react'
 import QuestionCard from '../../../components/QuestionCard'
 import { Spin, Typography } from 'antd'
 import styles from '../common.module.scss'
-import { useRequest, useTitle } from 'ahooks'
+import { useTitle } from 'ahooks'
 import InputSearch from '../../../components/InputSearch/InputSearch'
-import { getQuestionList } from '../../../services/question'
+import { useSearchList } from '../../../hooks/useSearchList'
+import { ListPagination } from '../../../components/ListPagination/ListPagination'
 
 const { Title } = Typography
 
 const List = () => {
     useTitle("问卷系统-列表")
-    const { loading, error, data = {} } = useRequest(getQuestionList)
-    const { list = [], total } = data
+    const { list = [], total, loading, error } = useSearchList()
     return <>
         <div className={styles.header}>
             <div className={styles.left}>
@@ -23,14 +23,19 @@ const List = () => {
         </div>
         <div>
             {/* 问卷列表 */}
-            {loading && (<Spin style={{ margin: '0 auto'}} />)}
+            {loading && (<Spin size={'large'} style={{ position: 'absolute', top: '50%', left: '50%' }} />)}
             {
-                (!loading && list.length > 0) && list.map((item: any) => {
-                    return <QuestionCard {...item} />
+                (!loading && list.length > 0) && list?.map((item: any) => {
+                    return <QuestionCard key={item._id} {...item} />
                 })
             }
         </div>
-        <div className={styles.footer}>LoadMore... 加载更多...</div>
+        {
+            !loading && <div>
+                <ListPagination total={total} />
+            </div>
+        }
+        {!loading && <div className={styles.footer}>LoadMore... 加载更多...</div>}
     </>
 }
 
