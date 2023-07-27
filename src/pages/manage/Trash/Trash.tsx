@@ -4,6 +4,7 @@ import { Typography, Table, Tag, Empty, Space, Button, Modal, Spin } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { useSearchList } from '../../../hooks/useSearchList'
 import InputSearch from '../../../components/InputSearch/InputSearch'
+import { ListPagination } from '../../../components/ListPagination/ListPagination'
 
 const { Title } = Typography
 
@@ -91,9 +92,14 @@ const Trash = () => {
         <div>
             {loading && <Spin size={'large'} style={{ position: 'absolute', left: '50%', top: '50%' }} />}
             {
-                (!loading && list.length > 0)  && TableElement
+                (!loading && list.length > 0) && TableElement
             }
         </div>
+        {
+            !loading && <div>
+                <ListPagination total={total} />
+            </div>
+        }
     </>
 }
 

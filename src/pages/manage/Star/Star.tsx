@@ -4,6 +4,7 @@ import { Spin, Typography } from 'antd'
 import QuestionCard from '../../../components/QuestionCard'
 import { useSearchList } from '../../../hooks/useSearchList'
 import InputSearch from '../../../components/InputSearch/InputSearch'
+import { ListPagination } from '../../../components/ListPagination/ListPagination'
 
 const { Title } = Typography
 
@@ -29,6 +30,11 @@ const Star = () => {
                 ))
             }
         </div>
+        {
+            !loading && <div>
+                <ListPagination total={total} />
+            </div>
+        }
         <div className={styles.footer}>我是分页</div>
     </>
 }
