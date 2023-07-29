@@ -6,7 +6,7 @@ export const useSearchList = (isStar?: boolean, isDeleted?: boolean) => {
   const [searchParams] = useSearchParams()
   const page = parseInt(searchParams.get('page') || '') || 1
   const pageSize = parseInt(searchParams.get('pageSize') || '') || 10
-  const { data, loading, error } = useRequest(
+  const { data, loading, error, refresh } = useRequest(
     async () => {
       const data = await getQuestionList({
         keyword: searchParams.get('keyword') || '',
@@ -25,6 +25,7 @@ export const useSearchList = (isStar?: boolean, isDeleted?: boolean) => {
     total: data?.total,
     list: data?.list,
     loading,
-    error
+    error,
+    refresh
   }
 }

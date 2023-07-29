@@ -32,3 +32,29 @@ export const getQuestionList = async (
   })) as ResDataType
   return data
 }
+
+// 更新问卷
+export const changeQuestionStar = async (
+  id: string,
+  option: { [key: string]: any }
+): Promise<ResDataType> => {
+  const url = `/api/question/${id}`
+  const data = (await instance.patch(url, option)) as ResDataType
+  return data
+}
+
+// 复制问卷
+export const copyQuestion = async (id: string): Promise<ResDataType> => {
+  const url = `/api/question/copy/${id}`
+  const data = (await instance.post(url)) as ResDataType
+  return data
+}
+
+// 删除问卷
+export const deleteQuestion = async (ids: string[]) => {
+  const url = '/api/question'
+  const data = (await instance.delete(url, {
+    data: ids
+  })) as ResDataType
+  return data
+}
