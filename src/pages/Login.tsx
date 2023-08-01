@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
-import { Button, Checkbox, Input, Space, Typography } from 'antd'
+import { Button, Checkbox, Input, message, Space, Typography } from 'antd'
 import styles from './Login.module.scss'
 import { UserAddOutlined } from '@ant-design/icons'
 import { Form } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useRequest } from 'ahooks'
+import { LoginUser } from '../services/user'
+import { setToken } from '../utils/token'
 
 const { Title } = Typography
 const USERNAME_KEY = 'username'
@@ -27,9 +30,26 @@ const getUserInfo = () => (
 )
 
 const Login = () => {
+    const nav = useNavigate()
     const [form] = Form.useForm()
+    const { run } = useRequest(async (values) => {
+        const { username, password } = values
+        return await LoginUser({
+            username,
+            password
+        })
+    }, {
+        manual: true,
+        onSuccess: (result) => {
+            const { token = '' } = result
+            setToken(token)
+            message.success('登录成功')
+            nav('/manage/list')
+        }
+    })
     const onFinish = (values: any) => {
         const { username, password, remember } = values
+        run(values)
         if (remember) {
             rememberUser(username, password)
         } else {
