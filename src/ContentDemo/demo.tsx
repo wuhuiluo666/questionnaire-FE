@@ -21,7 +21,7 @@ export const Demo = () => {
     return <ThemeContext.Provider value={theme}>
         <div>
             <p>Theme Context</p>
-            <Button onClick={() => setTheme(themes.dark)}></Button>
+            <Button onClick={() => setTheme(themes.dark)}>切换主题</Button>
         </div>
         <One />
         <Two />
