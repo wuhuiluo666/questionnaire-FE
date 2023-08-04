@@ -1,9 +1,10 @@
-import React, { useReducer } from 'react'
+import React, { useContext, useReducer } from 'react'
 import { reducer } from './reducer'
+import { Context } from './reducerList'
 import { initialState } from './store'
 
 export const List = (props: any) => {
-    const [state, dispatch] = useReducer(reducer, initialState)
+    const { state, dispatch } = useContext(Context)
     const deleteItem = (id: string) => {
         dispatch({ type: 'delete', payload: id })
     }
@@ -11,11 +12,11 @@ export const List = (props: any) => {
         <ul>
             {
                 state.map(item => (
-                    <div>
-                        <li key={item.id}>
+                    <div key={item.id}>
+                        <li>
                             {item.title}
                         </li>
-                        <button onClick={() => }>删除</button>
+                        <button onClick={() => deleteItem(item.id)}>删除</button>
                     </div>
                 ))
             }
