@@ -1,16 +1,20 @@
-import { UserOutlined } from '@ant-design/icons'
-import { useRequest } from 'ahooks'
-import { Button } from 'antd'
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { UserOutlined } from '@ant-design/icons'
+import { Button } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
-import { getUserInfo } from '../../services/user'
+import { logoutReducer } from '../../store/user' 
 import { TokenKey } from '../../utils/token'
+import { UserType } from '../../store/user'
 
 const UserInfo = () => {
     const nav = useNavigate()
-    const { data = {} } = useRequest(getUserInfo)
-    const { userName = '', nickName = '' } = data
+    const dispatch = useDispatch()
+    const { nickName, userName } = useSelector<{
+        user: UserType
+    }>(state => state.user) as UserType
     const logout = () => {
+        dispatch(logoutReducer)
         window.localStorage.removeItem(TokenKey)
         nav('/login')
     }
