@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 import { useLoadQuestionData } from '../../../hooks/useLoadQuestionData'
+import { EditCanvas } from '../EditCanvas'
 
 
 const Edit = () => {
@@ -12,7 +13,7 @@ const Edit = () => {
                 <div className={styles.left}>Left</div>
                 <div className={styles.main}>
                     <div className={styles['canvas-warpper']}>
-                        <div style={{ height: '900px' }}></div>
+                       <EditCanvas />
                     </div>
                 </div>
                 <div className={styles.right}>Rihgt</div>
