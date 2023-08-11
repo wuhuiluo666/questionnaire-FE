@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
-import { ComponentInput } from '../../../components/ComponentInput'
-import { ComponentTitle } from '../../../components/ComponentTitle'
+import { ComponentInput } from '../../../QuestionComponent/ComponentInput'
+import { ComponentTitle } from '../../../QuestionComponent/ComponentTitle'
 
 export const EditCanvas = () => {
     return <div className={styles.canvas}>

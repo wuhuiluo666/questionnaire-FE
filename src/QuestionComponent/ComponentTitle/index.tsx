@@ -3,13 +3,13 @@ import { Typography } from 'antd'
 
 const { Title } = Typography
 
-interface ComponentTitleProps {
+export interface ComponentTitleProps {
     title?: string
     level?: 1 | 2 | 3 | 4 | 5
     isCenter?: boolean
 }
 
-const defaultProps: ComponentTitleProps = {
+export const defaultProps: ComponentTitleProps = {
     title: '默认标题',
     level: 1,
     isCenter: false

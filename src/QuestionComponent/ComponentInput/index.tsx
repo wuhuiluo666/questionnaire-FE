@@ -3,12 +3,12 @@ import { Input, Typography } from 'antd'
 
 const { Paragraph } = Typography
 
-interface ComponentInputProps {
+export interface ComponentInputProps {
     text?: string,
     placeholder?: string
 }
 
-const defaultProps: ComponentInputProps = {
+export const defaultProps: ComponentInputProps = {
     text: '输入框标题',
     placeholder: '请输入',
 }
