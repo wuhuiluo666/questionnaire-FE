@@ -1,16 +1,38 @@
 import { useRequest } from 'ahooks'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getQuestionDetail } from '../services/question'
+import { resetComponents } from '../store/componentList'
+import { useDispatch } from 'react-redux'
 
-export const useLoadQuestionData = () => {
-  const { id = '' } = useParams()
-  const loadData = async () => {
-    return await getQuestionDetail(id)
-  }
-  const { loading, error, data } = useRequest(loadData)
+export const useGetQuestionDetail = () => {
+  const dispatch = useDispatch()
+  const { id } = useParams()
+  const { run, loading, data } = useRequest(
+    async () => {
+      if (!id) throw new Error('没有问卷 id')
+      const data = await getQuestionDetail(id)
+      return data
+    },
+    {
+      manual: true // 手动
+    }
+  )
+
+  useEffect(() => {
+    if (!data) return
+    const { componentsList = [] } = data
+    dispatch(
+      resetComponents({
+        componentsList
+      })
+    ) 
+  }, [data])
+  useEffect(() => {
+    run()
+  }, [id])
+
   return {
-    loading,
-    error,
-    data
+    loading
   }
 }

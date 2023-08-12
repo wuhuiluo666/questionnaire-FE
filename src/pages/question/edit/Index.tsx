@@ -1,11 +1,11 @@
 import React from 'react'
 import styles from './index.module.scss'
-import { useLoadQuestionData } from '../../../hooks/useLoadQuestionData'
 import { EditCanvas } from '../EditCanvas'
+import { useGetQuestionDetail } from '../../../hooks/useLoadQuestionData'
 
 
 const Edit = () => {
-    const { loading, data } = useLoadQuestionData()
+    const { loading } = useGetQuestionDetail()
     return <div className={styles['edit-container']}>
         <div>Edit Header</div>
         <div className={styles['content-wrapper']}>

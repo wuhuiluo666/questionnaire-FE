@@ -3,7 +3,7 @@ import { Input, Typography } from 'antd'
 
 const { Paragraph } = Typography
 
-export interface ComponentInputProps {
+export type ComponentInputProps = {
     text?: string,
     placeholder?: string
 }

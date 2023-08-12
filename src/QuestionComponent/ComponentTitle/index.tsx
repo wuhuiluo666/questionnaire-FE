@@ -3,7 +3,7 @@ import { Typography } from 'antd'
 
 const { Title } = Typography
 
-export interface ComponentTitleProps {
+export type ComponentTitleProps = {
     title?: string
     level?: 1 | 2 | 3 | 4 | 5
     isCenter?: boolean
