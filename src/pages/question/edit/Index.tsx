@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './index.module.scss'
 import { EditCanvas } from '../EditCanvas'
 import { useGetQuestionDetail } from '../../../hooks/useLoadQuestionData'
+import { Spin } from 'antd'
 
 
 const Edit = () => {
@@ -13,7 +14,7 @@ const Edit = () => {
                 <div className={styles.left}>Left</div>
                 <div className={styles.main}>
                     <div className={styles['canvas-warpper']}>
-                       <EditCanvas />
+                        <EditCanvas loading={loading} />
                     </div>
                 </div>
                 <div className={styles.right}>Rihgt</div>
