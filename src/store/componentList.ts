@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ComponentProps } from '../QuestionComponent'
 
 // 单个组件的属性
 export type ComponentProps = {
