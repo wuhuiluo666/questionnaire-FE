@@ -2,7 +2,6 @@ import React from 'react'
 import styles from './index.module.scss'
 import { EditCanvas } from '../EditCanvas'
 import { useGetQuestionDetail } from '../../../hooks/useLoadQuestionData'
-import { Spin } from 'antd'
 
 
 const Edit = () => {

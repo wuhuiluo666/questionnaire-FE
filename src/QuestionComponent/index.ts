@@ -19,3 +19,8 @@ export const ComponentConfigList: ComponentConfig[] = [
   ComponentInputConfig,
   ComponentTitleConfig
 ]
+
+// 根据type返回组件配置
+export const GetComponentByType = (type: string) => {
+  return ComponentConfigList?.find((component) => component.type === type)
+}
