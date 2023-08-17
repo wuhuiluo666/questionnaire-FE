@@ -22,9 +22,13 @@ export const useGetQuestionDetail = () => {
   useEffect(() => {
     if (!data) return
     const { componentsList = [] } = data
+    let selectedId = ''
+    if(componentsList.length) {
+      selectedId = componentsList[0].fe_id
+    }
     dispatch(
       resetComponents({
-        selectedId: '',
+        selectedId,
         componentsList
       })
     ) 

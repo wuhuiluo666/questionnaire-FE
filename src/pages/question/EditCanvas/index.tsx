@@ -19,7 +19,8 @@ export const EditCanvas = ({ loading }: { loading: boolean }) => {
         return <Component {...props} />
     }
     // onClick 只能传入函数不能传入函数执行 意味着函数执行只要有参数就需要 () => 去执行需要执行的函数
-    const clickComponnet = (id: string) => {
+    const clickComponnet = (e: MouseEvent,id: string) => {
+        e.stopPropagation()
         dispatch(changeSelectedId(id))
     }
     const { componentsList,selectedId } = useGetComponentsList() // redux获取componentsList
@@ -36,7 +37,7 @@ export const EditCanvas = ({ loading }: { loading: boolean }) => {
                     [defaultComponentClassName]: true,
                     [selectedComponentClassName]: fe_id === selectedId
                 })
-                return <div onClick={() => clickComponnet(fe_id)} key={fe_id} className={ComponentClassName}>
+                return <div onClick={(e: any) => clickComponnet(e,fe_id)} key={fe_id} className={ComponentClassName}>
                     <div className={styles.component}>
                         {genComponent(component)}
                     </div>

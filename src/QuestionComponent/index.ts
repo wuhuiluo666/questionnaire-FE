@@ -20,6 +20,13 @@ export const ComponentConfigList: ComponentConfig[] = [
   ComponentTitleConfig
 ]
 
+// 左侧所有组件分类
+export const ComponentConfigGroup = [
+  {
+    
+  }
+]
+
 // 根据type返回组件配置
 export const GetComponentByType = (type: string) => {
   return ComponentConfigList?.find((component) => component.type === type)
