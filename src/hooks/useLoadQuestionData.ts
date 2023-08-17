@@ -24,6 +24,7 @@ export const useGetQuestionDetail = () => {
     const { componentsList = [] } = data
     dispatch(
       resetComponents({
+        selectedId: '',
         componentsList
       })
     ) 

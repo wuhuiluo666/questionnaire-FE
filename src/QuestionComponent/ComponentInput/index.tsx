@@ -16,7 +16,7 @@ export const defaultProps: ComponentInputProps = {
 export const ComponentInput = (props: ComponentInputProps) => {
     const { text = '输入框标题', placeholder = '请输入' } = { ...defaultProps, ...props }
     return <div>
-        <Paragraph>{text}</Paragraph>
+        <Paragraph strong>{text}</Paragraph>
         <div>
             <Input placeholder={placeholder} />
         </div>
