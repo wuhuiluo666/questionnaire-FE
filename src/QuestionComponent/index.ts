@@ -23,7 +23,14 @@ export const ComponentConfigList: ComponentConfig[] = [
 // 左侧所有组件分类
 export const ComponentConfigGroup = [
   {
-    
+    group_id: 'Group_Text',
+    groupName: '文本显示',
+    components: [ComponentTitleConfig]
+  },
+  {
+    group_id: 'Group_Input',
+    groupName: '用户输入',
+    components: [ComponentInputConfig]
   }
 ]
 

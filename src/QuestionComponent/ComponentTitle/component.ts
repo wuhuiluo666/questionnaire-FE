@@ -6,3 +6,4 @@ export const ComponentTitleConfig = {
   Component: ComponentTitle,
   defaultProps: defaultProps
 }
+

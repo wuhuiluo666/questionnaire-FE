@@ -4,6 +4,7 @@ import { EditCanvas } from '../EditCanvas'
 import { useGetQuestionDetail } from '../../../hooks/useLoadQuestionData'
 import { useDispatch } from 'react-redux'
 import { changeSelectedId } from '../../../store/componentList'
+import { LeftPanel } from '../leftPanel'
 
 const Edit = () => {
     const { loading } = useGetQuestionDetail()
@@ -15,7 +16,9 @@ const Edit = () => {
         <div>Edit Header</div>
         <div className={styles['content-wrapper']}>
             <div className={styles.content}>
-                <div className={styles.left}>Left</div>
+                <div className={styles.left}>
+                    <LeftPanel />
+                </div>
                 <div onClick={clearSelectId} className={styles.main}>
                     <div className={styles['canvas-warpper']}>
                         <EditCanvas loading={loading} />
