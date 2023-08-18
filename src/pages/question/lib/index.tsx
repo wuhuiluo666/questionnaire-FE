@@ -10,6 +10,7 @@ const { Title } = Typography
 
 export const ComponentLib = () => {
     const dispatch = useDispatch()
+    // click组件添加到中间
     const genComponent = (c: ComponentConfig) => {
         const { title, type, Component, defaultProps } = c
         const handleClick = () => {
