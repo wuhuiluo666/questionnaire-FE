@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import produce from 'immer'
+import { AllComponentProps } from '../QuestionComponent'
 
 // 单个组件的属性
 export type ComponentProps = {
   fe_id: string
   title: string
   type: string
-  props: ComponentProps
+  props: AllComponentProps
 }
 
 export type ComponentsStateProps = {
@@ -29,11 +30,19 @@ export const ComponentsSlice = createSlice({
     ) => {
       return action.payload
     },
-    changeSelectedId: produce((draft: ComponentsStateProps, action: PayloadAction<string>) => {
-      draft.selectedId = action.payload
-    })
+    changeSelectedId: produce(
+      (draft: ComponentsStateProps, action: PayloadAction<string>) => {
+        draft.selectedId = action.payload
+      }
+    ),
+    addComponent: produce(
+      (draft: ComponentsStateProps, action: PayloadAction<ComponentProps>) => {
+        draft.componentsList.push(action.payload)
+      }
+    )
   }
 })
 
-export const { resetComponents,changeSelectedId } = ComponentsSlice.actions
+export const { resetComponents, changeSelectedId, addComponent } =
+  ComponentsSlice.actions
 export default ComponentsSlice.reducer
