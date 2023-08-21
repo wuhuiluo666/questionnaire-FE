@@ -37,7 +37,21 @@ export const ComponentsSlice = createSlice({
     ),
     addComponent: produce(
       (draft: ComponentsStateProps, action: PayloadAction<ComponentProps>) => {
-        draft.componentsList.push(action.payload)
+        const newComponent = action.payload
+        // 找到目前被选中的下标
+        const Index = draft.componentsList.findIndex(
+          (component) => component.fe_id === draft.selectedId
+        ) 
+        // findIndex 有就返回0或者以上 没有找到就返回-1
+        if (Index >= 0) {
+          // 选中 添加至下一个
+          draft.componentsList.splice(Index + 1, 0, newComponent)
+        } else {
+          // 未选中 添加至末尾
+          draft.componentsList.push(newComponent)
+        }
+        // 将新添加的组件设置为选中状态
+        draft.selectedId = newComponent.fe_id
       }
     )
   }

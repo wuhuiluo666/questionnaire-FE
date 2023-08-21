@@ -12,6 +12,7 @@ export type ComponentConfig = {
   title: string
   type: string
   Component: FC<AllComponentProps>
+  ComponentProps: FC<AllComponentProps>
   defaultProps: AllComponentProps
 }
 // 所有组件配置的列表
