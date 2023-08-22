@@ -5,7 +5,8 @@ const { Paragraph } = Typography
 
 export type ComponentInputProps = {
     title?: string,
-    placeholder?: string
+    placeholder?: string,
+    onChange?: (data: ComponentInputProps) => void
 }
 
 export const defaultProps: ComponentInputProps = {
