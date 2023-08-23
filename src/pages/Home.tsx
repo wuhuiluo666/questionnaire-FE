@@ -6,9 +6,6 @@ import { Button, Typography } from 'antd'
 
 const Home = () => {
     const nav = useNavigate()
-    useEffect(() => {
-        axios.get('/api/test').then(res => console.log('res', res))
-    }, [])
     return <div className={styles.container}>
         <div className={styles.info}>
             <Typography.Title>问卷调查 | 在线投票</Typography.Title>

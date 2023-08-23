@@ -7,7 +7,6 @@ export const useNav = (loading: boolean) => {
     user: UserType
   }>((state) => state.user) as UserType
   const { pathname } = useLocation()
-  console.log('pagehane' ,pathname)
   const l = ['/login', '/register']
   const b = ['/login', '/register', '/']
   const nav = useNavigate()
@@ -15,7 +14,6 @@ export const useNav = (loading: boolean) => {
     if (loading) return
     // 已经登录
     if (userName) {
-      console.log(l.includes(pathname))
       if (l.includes(pathname)) {
         nav('/manage/list')
       }

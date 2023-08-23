@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { changeSelectedId } from '../../../store/componentList'
 import { LeftPanel } from '../leftPanel'
 import { RightPanel } from '../rightPanel'
+import { EditHeader } from '../editHeader'
 
 const Edit = () => {
     const { loading } = useGetQuestionDetail()
@@ -14,7 +15,7 @@ const Edit = () => {
         dispatch(changeSelectedId(''))
     }
     return <div className={styles['edit-container']}>
-        <div>Edit Header</div>
+        <EditHeader />
         <div className={styles['content-wrapper']}>
             <div className={styles.content}>
                 <div className={styles.left}>

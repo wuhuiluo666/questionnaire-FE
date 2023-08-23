@@ -41,7 +41,7 @@ export const ComponentsSlice = createSlice({
         // 找到目前被选中的下标
         const Index = draft.componentsList.findIndex(
           (component) => component.fe_id === draft.selectedId
-        ) 
+        )
         // findIndex 有就返回0或者以上 没有找到就返回-1
         if (Index >= 0) {
           // 选中 添加至下一个
@@ -53,10 +53,31 @@ export const ComponentsSlice = createSlice({
         // 将新添加的组件设置为选中状态
         draft.selectedId = newComponent.fe_id
       }
+    ),
+    changeComponentProps: produce(
+      (
+        draft: ComponentsStateProps,
+        action: PayloadAction<{ id: string; newProps: AllComponentProps }>
+      ) => {
+        const { id, newProps } = action.payload
+        const currentComponent = draft.componentsList.find(
+          (component) => component.fe_id === id
+        )
+        if (currentComponent) {
+          currentComponent.props = {
+            ...currentComponent.props,
+            ...newProps
+          }
+        }
+      }
     )
   }
 })
 
-export const { resetComponents, changeSelectedId, addComponent } =
-  ComponentsSlice.actions
+export const {
+  resetComponents,
+  changeSelectedId,
+  addComponent,
+  changeComponentProps
+} = ComponentsSlice.actions
 export default ComponentsSlice.reducer
