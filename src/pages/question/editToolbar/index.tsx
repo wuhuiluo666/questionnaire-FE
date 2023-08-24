@@ -2,15 +2,16 @@ import React from 'react'
 import { DeleteOutlined } from '@ant-design/icons'
 import { Button, Tooltip } from 'antd'
 import { useDispatch } from 'react-redux'
+import { deleteComponent } from '../../../store/componentList'
 
 export const EditToolBar = () => {
     const dispatch = useDispatch()
-    const deleteComponent = () => {
-
+    const DeleteComp = () => {
+        dispatch(deleteComponent())
     }
     return <div>
         <Tooltip title={'删除'}>
-            <Button icon={<DeleteOutlined />}></Button>
+            <Button onClick={DeleteComp} icon={<DeleteOutlined />}></Button>
         </Tooltip>
-    </div>   
+    </div>
 }

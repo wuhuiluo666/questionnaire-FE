@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import produce from 'immer'
 import { AllComponentProps } from '../QuestionComponent'
+import { genNewSelectedId } from '../utils/returnSelected'
 
 // 单个组件的属性
 export type ComponentProps = {
@@ -70,7 +71,15 @@ export const ComponentsSlice = createSlice({
           }
         }
       }
-    )
+    ),
+    // 删除组件
+    deleteComponent: produce((draft: ComponentsStateProps) => {
+      const { componentsList = [], selectedId = '' } = draft
+      const newSelectedId = genNewSelectedId(selectedId, componentsList)
+      draft.selectedId = newSelectedId
+      const Index = componentsList.findIndex(component => component.fe_id === selectedId)
+      componentsList.splice(Index, 1)
+    })
   }
 })
 
@@ -78,6 +87,7 @@ export const {
   resetComponents,
   changeSelectedId,
   addComponent,
-  changeComponentProps
+  changeComponentProps,
+  deleteComponent
 } = ComponentsSlice.actions
 export default ComponentsSlice.reducer
