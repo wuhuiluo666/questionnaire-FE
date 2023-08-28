@@ -5,22 +5,23 @@ export const genNewSelectedId = (
   componentsList: ComponentProps[]
 ) => {
   // 拿到当前选中元素的下表
-  const currentComponentIndex = componentsList.findIndex(component => component.fe_id === fe_id)
+  const visibleComponentList = componentsList.filter(component => !component.isHidden)
+  const currentComponentIndex = visibleComponentList.findIndex(component => component.fe_id === fe_id)
   // 没选中
   if(currentComponentIndex < 0) {
     return ''
   }
   // 选中
   let newSelectedId
-  const len = componentsList.length
+  const len = visibleComponentList.length
   if(len <= 1) {
     newSelectedId = ''
   }
   // 点击了最后一项
   if(currentComponentIndex + 1 === len) {
-    newSelectedId = componentsList[currentComponentIndex - 1].fe_id
+    newSelectedId = visibleComponentList[currentComponentIndex - 1].fe_id
   } else {
-    newSelectedId = componentsList[currentComponentIndex + 1].fe_id
+    newSelectedId = visibleComponentList[currentComponentIndex + 1].fe_id
   }
   return newSelectedId
 }

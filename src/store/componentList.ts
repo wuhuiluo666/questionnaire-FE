@@ -89,11 +89,11 @@ export const ComponentsSlice = createSlice({
         draft: ComponentsStateProps,
         action: PayloadAction<{ fe_id: string; hidden: boolean }>
       ) => {
-        const { componentsList } = draft
+        const { componentsList = [] } = draft
         const { fe_id, hidden } = action.payload
-        const curComp = componentsList.find(
-          (component) => component.fe_id === fe_id
-        )
+        const newSelectedId = genNewSelectedId(fe_id, componentsList)
+        // 隐藏当前选中的组件
+        const curComp = componentsList.find(component => component.fe_id === fe_id)
         if(curComp) {
           curComp.isHidden = hidden
         }
