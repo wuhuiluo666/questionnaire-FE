@@ -29,7 +29,7 @@ export const EditCanvas = ({ loading }: { loading: boolean }) => {
     }
     return <div className={styles.canvas}>
         {
-            componentsList.map((component: ComponentProps) => {
+            componentsList.filter(visible => !visible.isHidden).map((component: ComponentProps) => {
                 const { fe_id } = component
                 const defaultComponentClassName = styles['component-wrapper']
                 const selectedComponentClassName = styles.selected

@@ -2,25 +2,25 @@ import { ComponentProps } from '../store/componentList'
 
 export const genNewSelectedId = (
   fe_id: string,
-  componentList: ComponentProps[]
+  componentsList: ComponentProps[]
 ) => {
-  // 获取当前删除项的Index
-  const currentComponentIndex = componentList.findIndex(
-    (component) => component.fe_id === fe_id
-  )
-  // 选中的新Id
-  let newSelectedId = ''
+  // 拿到当前选中元素的下表
+  const currentComponentIndex = componentsList.findIndex(component => component.fe_id === fe_id)
   // 没选中
-  if (currentComponentIndex < 0) {
+  if(currentComponentIndex < 0) {
+    return ''
+  }
+  // 选中
+  let newSelectedId
+  const len = componentsList.length
+  if(len <= 1) {
     newSelectedId = ''
   }
-  // 选中了
-  // 1.只有一项
-  if (currentComponentIndex + 1 === componentList.length) {
-    newSelectedId = ''
+  // 点击了最后一项
+  if(currentComponentIndex + 1 === len) {
+    newSelectedId = componentsList[currentComponentIndex - 1].fe_id
   } else {
-    // 2.不止一项
-    newSelectedId = componentList[currentComponentIndex + 1].fe_id
+    newSelectedId = componentsList[currentComponentIndex + 1].fe_id
   }
   return newSelectedId
 }

@@ -8,6 +8,7 @@ export type ComponentProps = {
   fe_id: string
   title: string
   type: string
+  isHidden?: boolean
   props: AllComponentProps
 }
 
@@ -77,9 +78,27 @@ export const ComponentsSlice = createSlice({
       const { componentsList = [], selectedId = '' } = draft
       const newSelectedId = genNewSelectedId(selectedId, componentsList)
       draft.selectedId = newSelectedId
-      const Index = componentsList.findIndex(component => component.fe_id === selectedId)
+      const Index = componentsList.findIndex(
+        (component) => component.fe_id === selectedId
+      )
       componentsList.splice(Index, 1)
-    })
+    }),
+    // 隐藏组件
+    hiddenComponent: produce(
+      (
+        draft: ComponentsStateProps,
+        action: PayloadAction<{ fe_id: string; hidden: boolean }>
+      ) => {
+        const { componentsList } = draft
+        const { fe_id, hidden } = action.payload
+        const curComp = componentsList.find(
+          (component) => component.fe_id === fe_id
+        )
+        if(curComp) {
+          curComp.isHidden = hidden
+        }
+      }
+    )
   }
 })
 
@@ -88,6 +107,7 @@ export const {
   changeSelectedId,
   addComponent,
   changeComponentProps,
-  deleteComponent
+  deleteComponent,
+  hiddenComponent
 } = ComponentsSlice.actions
 export default ComponentsSlice.reducer
