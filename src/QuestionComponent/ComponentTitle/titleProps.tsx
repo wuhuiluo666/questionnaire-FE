@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import { ComponentTitleProps } from '.'
 
 export const TitleProps = (props: ComponentTitleProps) => {
-    const { text, isCenter, level, onChange } = props
+    const { text, isCenter, level, onChange, isLocked } = props
     const [form] = useForm()
     useEffect(() => {
         form.setFieldsValue({
@@ -18,7 +18,7 @@ export const TitleProps = (props: ComponentTitleProps) => {
             onChange(form.getFieldsValue())
         }
     }
-    return <Form onChange={valuesChange} initialValues={{ text, isCenter, level }} form={form} layout={'vertical'}>
+    return <Form disabled={isLocked} onChange={valuesChange} initialValues={{ text, isCenter, level }} form={form} layout={'vertical'}>
         <Form.Item label={'标题内容'} name={'text'} rules={[{ required: true, message: '请输入标题内容' }]}>
             <Input />
         </Form.Item>

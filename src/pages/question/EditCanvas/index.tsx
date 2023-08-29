@@ -19,25 +19,27 @@ export const EditCanvas = ({ loading }: { loading: boolean }) => {
         return <Component {...props} />
     }
     // onClick 只能传入函数不能传入函数执行 意味着函数执行只要有参数就需要 () => 去执行需要执行的函数
-    const clickComponnet = (e: MouseEvent,id: string) => {
+    const clickComponnet = (e: MouseEvent, id: string) => {
         e.stopPropagation()
         dispatch(changeSelectedId(id))
     }
-    const { componentsList,selectedId } = useGetComponentsList() // redux获取componentsList
+    const { componentsList, selectedId } = useGetComponentsList() // redux获取componentsList
     if (loading) {
         return <Spin size={'large'} style={{ position: 'relative', top: '50%', left: '50%' }} />
     }
     return <div className={styles.canvas}>
         {
             componentsList.filter(visible => !visible.isHidden).map((component: ComponentProps) => {
-                const { fe_id } = component
+                const { fe_id, isLocked } = component
                 const defaultComponentClassName = styles['component-wrapper']
                 const selectedComponentClassName = styles.selected
+                const lockedComponentClassName = styles.locked
                 const ComponentClassName = classNames({
                     [defaultComponentClassName]: true,
-                    [selectedComponentClassName]: fe_id === selectedId
+                    [selectedComponentClassName]: fe_id === selectedId,
+                    [lockedComponentClassName]: isLocked
                 })
-                return <div onClick={(e: any) => clickComponnet(e,fe_id)} key={fe_id} className={ComponentClassName}>
+                return <div onClick={(e: any) => clickComponnet(e, fe_id)} key={fe_id} className={ComponentClassName}>
                     <div className={styles.component}>
                         {genComponent(component)}
                     </div>

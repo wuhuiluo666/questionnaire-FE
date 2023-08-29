@@ -7,7 +7,8 @@ export type ComponentTitleProps = {
     text?: string
     level?: 1 | 2 | 3 | 4 | 5
     isCenter?: boolean,
-    onChange?: (data: ComponentTitleProps) => void
+    onChange?: (data: ComponentTitleProps) => void,
+    isLocked?: boolean
 }
 
 export const defaultProps: ComponentTitleProps = {

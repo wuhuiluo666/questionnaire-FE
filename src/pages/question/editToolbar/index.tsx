@@ -2,7 +2,7 @@ import React from 'react'
 import { DeleteOutlined, EyeInvisibleOutlined, LockOutlined } from '@ant-design/icons'
 import { Button, Space, Tooltip } from 'antd'
 import { useDispatch } from 'react-redux'
-import { deleteComponent, hiddenComponent } from '../../../store/componentList'
+import { deleteComponent, hiddenComponent, lockedComponent } from '../../../store/componentList'
 import { useGetComponentsList } from '../../../hooks/useGetComponentsList'
 
 export const EditToolBar = () => {
@@ -15,6 +15,9 @@ export const EditToolBar = () => {
     const hiddenComp = () => {
         dispatch(hiddenComponent({ fe_id: selectedId, hidden: true }))
     }
+    const lockComp = () => {
+        dispatch(lockedComponent({ fe_id: selectedId }))
+    }
     return <div>
         <Space>
             <Tooltip title={'删除'}>
@@ -25,7 +28,7 @@ export const EditToolBar = () => {
             </Tooltip>
             {/* 默认未锁定 */}
             <Tooltip title={isLocked ? '解锁' : '锁定'}>
-                <Button type={isLocked ? 'primary' : 'default'} shape={'circle'} icon={<LockOutlined />}></Button>
+                <Button onClick={lockComp} type={isLocked ? 'primary' : 'default'} shape={'circle'} icon={<LockOutlined />}></Button>
             </Tooltip>
         </Space>
     </div>

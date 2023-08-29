@@ -6,7 +6,7 @@ import { useForm } from 'antd/es/form/Form'
 // Input的属性
 export const InputProps = (props: ComponentInputProps) => {
     const [form] = useForm()
-    const { title, placeholder, onChange } = props
+    const { title, placeholder, onChange, isLocked } = props
 
     useEffect(() => {
         form.setFieldsValue({ title, placeholder })
@@ -16,7 +16,7 @@ export const InputProps = (props: ComponentInputProps) => {
             onChange(form.getFieldsValue())
         }
     }
-    return <Form form={form} onValuesChange={valuesChange} layout={'vertical'} initialValues={{ title, placeholder }}>
+    return <Form disabled={isLocked} form={form} onValuesChange={valuesChange} layout={'vertical'} initialValues={{ title, placeholder }}>
         <Form.Item rules={[{ required: true, message: '请输入标题' }]} label="标题" name={'title'}>
             <Input />
         </Form.Item>

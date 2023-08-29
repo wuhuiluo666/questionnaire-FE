@@ -12,7 +12,7 @@ export const PropsForm = () => {
     const dispatch = useDispatch()
     const { currentComponent } = useGetComponentsList()
     if (currentComponent === undefined) return <NoProp /> // 当前的组件
-    const { fe_id, type, props } = currentComponent
+    const { fe_id, type, props, isLocked } = currentComponent
     const componentConfig = GetComponentByType(type)
     if (componentConfig === undefined) return <NoProp />
     const changeProps = (newProps: AllComponentProps) => {
@@ -20,5 +20,5 @@ export const PropsForm = () => {
         dispatch(changeComponentProps({ id: fe_id, newProps }))
     }
     const { ComponentProps } = componentConfig
-    return <ComponentProps onChange={changeProps} {...props} />
+    return <ComponentProps isLocked={isLocked} onChange={changeProps} {...props} />
 }
