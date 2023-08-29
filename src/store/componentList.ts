@@ -1,5 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import produce from 'immer'
+import cloneDeep from 'lodash.clonedeep'
+import { nanoid } from 'nanoid'
+import { useAddComponent } from '../hooks/useAddComponent'
 import { AllComponentProps } from '../QuestionComponent'
 import { genNewSelectedId } from '../utils/returnSelected'
 
@@ -15,11 +18,13 @@ export type ComponentProps = {
 
 export type ComponentsStateProps = {
   selectedId: string
+  copyComponent: ComponentProps | null
   componentsList: ComponentProps[]
 }
 
 const initialState: ComponentsStateProps = {
   selectedId: '',
+  copyComponent: null,
   componentsList: []
 }
 
@@ -125,7 +130,25 @@ export const ComponentsSlice = createSlice({
         if (curComp === undefined) return
         curComp.isLocked = !curComp.isLocked
       }
-    )
+    ),
+    // 复制组件
+    copyNewComponent: produce((draft: ComponentsStateProps) => {
+      // 找到当前选中的组件
+      const { componentsList, selectedId } = draft
+      const curComponent = componentsList.find(
+        (component) => component.fe_id === selectedId
+      )
+      if (curComponent === undefined) return
+      draft.copyComponent = cloneDeep(curComponent)
+    }),
+    // 粘贴组件
+    pasteComponent: produce((draft: ComponentsStateProps) => {
+      const { copyComponent } = draft
+      if (copyComponent === null) return
+      // 确保fe_id是唯一的
+      copyComponent.fe_id = nanoid()
+      useAddComponent(draft, copyComponent)
+    })
   }
 })
 
@@ -136,6 +159,8 @@ export const {
   changeComponentProps,
   deleteComponent,
   hiddenComponent,
-  lockedComponent
+  lockedComponent,
+  copyNewComponent,
+  pasteComponent
 } = ComponentsSlice.actions
 export default ComponentsSlice.reducer

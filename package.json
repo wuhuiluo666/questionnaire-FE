@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
+    "@types/lodash.clonedeep": "^4.5.7",
     "@types/mockjs": "^1.0.7",
     "typescript-plugin-css-modules": "^5.0.1"
   }

@@ -3,14 +3,17 @@ import { StoreState } from '../store'
 import { ComponentsStateProps } from '../store/componentList'
 
 export const useGetComponentsList = () => {
-  const { componentsList,selectedId } = useSelector<StoreState>(
+  const { componentsList, selectedId, copyComponent } = useSelector<StoreState>(
     (state) => state.components
   ) as ComponentsStateProps
   // 找到当前选中的currentComponent
-  const currentComponent = componentsList?.find(component => component.fe_id === selectedId)
+  const currentComponent = componentsList?.find(
+    (component) => component.fe_id === selectedId
+  )
   return {
     componentsList,
     selectedId,
-    currentComponent
+    currentComponent,
+    copyComponent
   }
 }
