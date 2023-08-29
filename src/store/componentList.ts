@@ -148,6 +148,16 @@ export const ComponentsSlice = createSlice({
       // 确保fe_id是唯一的
       copyComponent.fe_id = nanoid()
       useAddComponent(draft, copyComponent)
+    }),
+    // 移动到上一个选中的
+    upArrow: produce((draft: ComponentsStateProps) => {
+      const { componentsList,selectedId } = draft
+      const curCompIndex = componentsList.findIndex(component => component.fe_id === selectedId)
+      if(curCompIndex <= 0) {
+        return
+      } else {
+        const newSelectedId = componentsList[curCompIndex - 1].fe_id
+      }
     })
   }
 })
