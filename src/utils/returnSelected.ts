@@ -4,7 +4,7 @@ export const genNewSelectedId = (
   fe_id: string,
   componentsList: ComponentProps[]
 ) => {
-  // 拿到当前选中元素的下表
+  // 拿到当前选中元素的下表、、
   const visibleComponentList = componentsList.filter(component => !component.isHidden)
   const currentComponentIndex = visibleComponentList.findIndex(component => component.fe_id === fe_id)
   // 没选中
@@ -15,7 +15,7 @@ export const genNewSelectedId = (
   let newSelectedId
   const len = visibleComponentList.length
   if(len <= 1) {
-    newSelectedId = ''
+    return ''
   }
   // 点击了最后一项
   if(currentComponentIndex + 1 === len) {

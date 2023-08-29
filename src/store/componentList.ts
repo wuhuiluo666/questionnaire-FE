@@ -9,6 +9,7 @@ export type ComponentProps = {
   title: string
   type: string
   isHidden?: boolean
+  isLocked?: boolean
   props: AllComponentProps
 }
 
@@ -81,9 +82,11 @@ export const ComponentsSlice = createSlice({
       const Index = componentsList.findIndex(
         (component) => component.fe_id === selectedId
       )
-      componentsList.splice(Index, 1)
+      if (Index >= 0) {
+        componentsList.splice(Index, 1)
+      }
     }),
-    // 隐藏组件
+    // 隐藏/显示组件
     hiddenComponent: produce(
       (
         draft: ComponentsStateProps,
@@ -91,12 +94,36 @@ export const ComponentsSlice = createSlice({
       ) => {
         const { componentsList = [] } = draft
         const { fe_id, hidden } = action.payload
-        const newSelectedId = genNewSelectedId(fe_id, componentsList)
-        // 隐藏当前选中的组件
-        const curComp = componentsList.find(component => component.fe_id === fe_id)
-        if(curComp) {
+        let newSelectedId
+        // 需要隐藏
+        if (hidden) {
+          newSelectedId = genNewSelectedId(fe_id, componentsList)
+        } else {
+          newSelectedId = fe_id
+        }
+        draft.selectedId = newSelectedId
+        // 隐藏或者显示当前选中的组件
+        const curComp = componentsList.find(
+          (component) => component.fe_id === fe_id
+        )
+        if (curComp) {
           curComp.isHidden = hidden
         }
+      }
+    ),
+    // 锁定/解锁组件
+    lockedComponent: produce(
+      (
+        draft: ComponentsStateProps,
+        action: PayloadAction<{ fe_id: string }>
+      ) => {
+        const { componentsList } = draft
+        const { fe_id } = action.payload
+        const curComp = componentsList.find(
+          (component) => component.fe_id === fe_id
+        )
+        if (curComp === undefined) return
+        curComp.isLocked = !curComp.isLocked
       }
     )
   }
@@ -108,6 +135,7 @@ export const {
   addComponent,
   changeComponentProps,
   deleteComponent,
-  hiddenComponent
+  hiddenComponent,
+  lockedComponent
 } = ComponentsSlice.actions
 export default ComponentsSlice.reducer
