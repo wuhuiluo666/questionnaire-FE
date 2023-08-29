@@ -8,7 +8,7 @@ export const useAddComponent = (draft: ComponentsStateProps, newComponent: Compo
     if(curCompIndex < 0) {
         componentsList.push(newComponent)
     } else {
-        componentsList.splice(curCompIndex, 0 , newComponent)
+        componentsList.splice(curCompIndex + 1, 0 , newComponent)
     }
     draft.selectedId = newComponent.fe_id
 }

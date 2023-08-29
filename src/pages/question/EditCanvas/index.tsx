@@ -7,6 +7,7 @@ import { GetComponentByType } from '../../../QuestionComponent'
 import { changeSelectedId } from '../../../store/componentList'
 import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
+import { useBindCanvasKeyPress } from '../../../hooks/useBindCanvasKeyPress'
 
 export const EditCanvas = ({ loading }: { loading: boolean }) => {
     const dispatch = useDispatch()
@@ -24,6 +25,7 @@ export const EditCanvas = ({ loading }: { loading: boolean }) => {
         dispatch(changeSelectedId(id))
     }
     const { componentsList, selectedId } = useGetComponentsList() // redux获取componentsList
+    useBindCanvasKeyPress()
     if (loading) {
         return <Spin size={'large'} style={{ position: 'relative', top: '50%', left: '50%' }} />
     }
