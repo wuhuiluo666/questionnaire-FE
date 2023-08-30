@@ -151,13 +151,26 @@ export const ComponentsSlice = createSlice({
     }),
     // 移动到上一个选中的
     upArrow: produce((draft: ComponentsStateProps) => {
-      const { componentsList,selectedId } = draft
-      const curCompIndex = componentsList.findIndex(component => component.fe_id === selectedId)
-      if(curCompIndex <= 0) {
+      const { componentsList, selectedId } = draft
+      const curCompIndex = componentsList.findIndex(
+        (component) => component.fe_id === selectedId
+      )
+      if (curCompIndex <= 0) {
         return
       } else {
         const newSelectedId = componentsList[curCompIndex - 1].fe_id
+        draft.selectedId = newSelectedId
       }
+    }),
+    // 移动到下一个选中的
+    downArrow: produce((draft: ComponentsStateProps) => {
+      const { componentsList, selectedId } = draft
+      const curCompIndex = componentsList.findIndex(
+        (component) => component.fe_id === selectedId
+      )
+      if (curCompIndex < 0 || curCompIndex + 1 === componentsList.length) return
+      const newSelectedId = componentsList[curCompIndex + 1].fe_id
+      draft.selectedId = newSelectedId
     })
   }
 })
