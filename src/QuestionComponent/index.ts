@@ -3,9 +3,13 @@ import { ComponentInputProps } from './ComponentInput'
 import { FC } from 'react'
 import { ComponentInputConfig } from './ComponentInput/component'
 import { ComponentTitleConfig } from './ComponentTitle/component'
+import { ComponentParagraphProps } from './ComponentParagraph'
+import { ComponentParagraphConfig } from './ComponentParagraph/component'
 
 // 所有组件的属性
-export type AllComponentProps = ComponentInputProps & ComponentTitleProps
+export type AllComponentProps = ComponentInputProps &
+  ComponentTitleProps &
+  ComponentParagraphProps
 
 // 所有组件的配置
 export type ComponentConfig = {
@@ -18,7 +22,8 @@ export type ComponentConfig = {
 // 所有组件配置的列表
 export const ComponentConfigList: ComponentConfig[] = [
   ComponentInputConfig,
-  ComponentTitleConfig
+  ComponentTitleConfig,
+  ComponentParagraphConfig
 ]
 
 // 左侧所有组件分类
@@ -26,7 +31,7 @@ export const ComponentConfigGroup = [
   {
     group_id: 'Group_Text',
     groupName: '文本显示',
-    components: [ComponentTitleConfig]
+    components: [ComponentTitleConfig, ComponentParagraphConfig]
   },
   {
     group_id: 'Group_Input',

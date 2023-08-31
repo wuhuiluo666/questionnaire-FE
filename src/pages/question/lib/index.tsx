@@ -19,7 +19,7 @@ export const ComponentLib = () => {
                 type,
                 title,
                 props: {
-                    ...defaultProps
+                    ...defaultProps,
                 }
             }))
         }
