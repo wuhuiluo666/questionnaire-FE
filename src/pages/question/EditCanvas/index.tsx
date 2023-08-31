@@ -34,7 +34,6 @@ export const EditCanvas = ({ loading }: { loading: boolean }) => {
         {
             componentsList.filter(visible => !visible.isHidden).map((component: ComponentProps) => {
                 const { fe_id, isLocked } = component
-                console.log('isLocked3333', isLocked)
                 const defaultComponentClassName = styles['component-wrapper']
                 const selectedComponentClassName = styles.selected
                 const lockedComponentClassName = styles.locked

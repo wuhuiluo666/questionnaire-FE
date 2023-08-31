@@ -17,6 +17,21 @@ export const defaultProps: ComponentParagraphProps = {
 export const ComponentPragraph = (props: ComponentParagraphProps) => {
     const { text = '段落', isCenter = false } = { ...defaultProps, ...props }
     return <Typography.Paragraph style={{ textAlign: isCenter ? 'center' : 'start', marginBottom: 0 }}>
-        {text}
+        {
+            // ['我是谁','啊是','没有'] 换行处理成这样的数组
+            // text.split('\n').map((text, index) => {
+            //     return <span key={text}>
+            //         {/* 第二行开始换行+文字 */}
+            //         {index > 0 && <br />}
+            //         {text}
+            //     </span>
+            // })
+            text.split('\n').map((text, index) => (
+                <span key={text}>
+                    {index > 0 && <br />}
+                    {text}
+                </span>
+            ))
+        }
     </Typography.Paragraph>
 }
