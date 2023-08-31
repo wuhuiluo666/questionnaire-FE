@@ -13,7 +13,7 @@ export const PropsForm = () => {
     const { currentComponent } = useGetComponentsList()
     if (currentComponent === undefined) return <NoProp /> // 当前的组件
     const { fe_id, type, props, isLocked } = currentComponent
-    const componentConfig = GetComponentByType(type)
+    const componentConfig = GetComponentByType(type) // 为什么要找因为要传入props
     if (componentConfig === undefined) return <NoProp />
     const changeProps = (newProps: AllComponentProps) => {
         if (!currentComponent) return

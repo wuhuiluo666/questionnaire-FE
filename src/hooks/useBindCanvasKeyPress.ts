@@ -3,7 +3,9 @@ import { useDispatch } from 'react-redux'
 import {
   deleteComponent,
   copyNewComponent,
-  pasteComponent
+  pasteComponent,
+  upArrow,
+  downArrow
 } from '../store/componentList'
 
 // 判断当前的元素是否合法
@@ -32,10 +34,11 @@ export const useBindCanvasKeyPress = () => {
   })
   // 上移
   useKeyPress(['uparrow'], () => {
-    console.log('111上移')
+    if (!isValidActiveElement) return
+    dispatch(upArrow())
   })
   // 下移
   useKeyPress(['downarrow'], () => {
-    console.log('xxx22')
+    dispatch(downArrow())
   })
 }

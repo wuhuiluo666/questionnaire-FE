@@ -184,6 +184,8 @@ export const {
   hiddenComponent,
   lockedComponent,
   copyNewComponent,
-  pasteComponent
+  pasteComponent,
+  upArrow,
+  downArrow
 } = ComponentsSlice.actions
 export default ComponentsSlice.reducer

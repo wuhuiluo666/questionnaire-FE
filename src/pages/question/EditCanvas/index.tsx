@@ -14,6 +14,7 @@ export const EditCanvas = ({ loading }: { loading: boolean }) => {
     // 渲染组件
     const genComponent = (component: ComponentProps) => {
         const { type, props } = component // 后端数据获取的type和props
+        // 为什么要找因为要传入props
         const ComponentConfig = GetComponentByType(type) // 根据type返回Component
         if (!ComponentConfig) return null
         const { Component } = ComponentConfig
