@@ -7,12 +7,15 @@ import { ComponentParagraphProps } from './ComponentParagraph'
 import { ComponentParagraphConfig } from './ComponentParagraph/component'
 import { ComponentInfoProps } from './ComponentInfo'
 import { ComponentInfoConfig } from './ComponentInfo/component'
+import { ComponentTextAreaProps } from './ComponentTextArea'
+import { ComponentTextAreaConfig } from './ComponentTextArea/component'
 
 // 所有组件的属性
 export type AllComponentProps = ComponentInputProps &
   ComponentTitleProps &
   ComponentParagraphProps &
-  ComponentInfoProps
+  ComponentInfoProps &
+  ComponentTextAreaProps
 
 // 所有组件的配置
 export type ComponentConfig = {
@@ -27,7 +30,8 @@ export const ComponentConfigList: ComponentConfig[] = [
   ComponentInputConfig,
   ComponentTitleConfig,
   ComponentParagraphConfig,
-  ComponentInfoConfig
+  ComponentInfoConfig,
+  ComponentTextAreaConfig
 ]
 
 // 左侧所有组件分类
@@ -44,7 +48,7 @@ export const ComponentConfigGroup = [
   {
     group_id: 'Group_Input',
     groupName: '用户输入',
-    components: [ComponentInputConfig]
+    components: [ComponentInputConfig, ComponentTextAreaConfig]
   }
 ]
 
