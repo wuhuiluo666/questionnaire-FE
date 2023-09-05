@@ -30,7 +30,7 @@ export const ComponentInfo = (props: ComponentInfoProps) => {
             } */}
             {
                 desc.split('\n').map((desc, index) => (
-                    <span>
+                    <span key={desc}>
                         {
                             index > 0 && <br />
                         }

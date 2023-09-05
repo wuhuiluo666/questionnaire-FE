@@ -9,13 +9,16 @@ import { ComponentInfoProps } from './ComponentInfo'
 import { ComponentInfoConfig } from './ComponentInfo/component'
 import { ComponentTextAreaProps } from './ComponentTextArea'
 import { ComponentTextAreaConfig } from './ComponentTextArea/component'
+import { ComponentRadioConfig } from './ComponentRadio/component'
+import { ComponentRadioProps } from './ComponentRadio'
 
 // 所有组件的属性
 export type AllComponentProps = ComponentInputProps &
   ComponentTitleProps &
   ComponentParagraphProps &
   ComponentInfoProps &
-  ComponentTextAreaProps
+  ComponentTextAreaProps &
+  ComponentRadioProps
 
 // 所有组件的配置
 export type ComponentConfig = {
@@ -31,7 +34,8 @@ export const ComponentConfigList: ComponentConfig[] = [
   ComponentTitleConfig,
   ComponentParagraphConfig,
   ComponentInfoConfig,
-  ComponentTextAreaConfig
+  ComponentTextAreaConfig,
+  ComponentRadioConfig
 ]
 
 // 左侧所有组件分类
@@ -49,6 +53,11 @@ export const ComponentConfigGroup = [
     group_id: 'Group_Input',
     groupName: '用户输入',
     components: [ComponentInputConfig, ComponentTextAreaConfig]
+  },
+  {
+    group_id: 'Group_Radio',
+    groupName: '用户选择',
+    components: [ComponentRadioConfig]
   }
 ]
 

@@ -18,10 +18,10 @@ const isValidActiveElement = () => {
 export const useBindCanvasKeyPress = () => {
   const dispatch = useDispatch()
   // 删除快捷键
-  useKeyPress(['backspace'], () => {
-    if (!isValidActiveElement) return
-    dispatch(deleteComponent())
-  })
+  // useKeyPress(['backspace'], () => {
+  //   if (!isValidActiveElement) return
+  //   dispatch(deleteComponent())
+  // })
   // 复制快捷键
   useKeyPress(['ctrl.c'], () => {
     if (!isValidActiveElement) return

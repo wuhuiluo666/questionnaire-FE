@@ -1,5 +1,9 @@
 import React from 'react'
-import { Typography } from 'antd'
+import { Radio, Space, Typography } from 'antd'
+
+const { Paragraph
+} = Typography
+
 type OptionType = {
     text: string,
     value: string
@@ -29,6 +33,18 @@ export const defaultProps: ComponentRadioProps = {
 export const ComponentRadio = (props: ComponentRadioProps) => {
     const { title = '单选框标题', isVertical = false, options = [], value = '' } = { ...defaultProps, ...props }
     return <div>
-
+        <Paragraph strong>{title}</Paragraph>
+        <Radio.Group value={value}>
+            <Space direction={isVertical ? 'vertical' : 'horizontal'}>
+                {
+                    options.map(option => {
+                        const { text, value } = option
+                        return <Radio key={value} value={value}>
+                            {text}
+                        </Radio>
+                    })
+                }
+            </Space>
+        </Radio.Group>
     </div>
 }
