@@ -19,9 +19,9 @@ export const RadioProps = (props: ComponentRadioProps) => {
             // 需要清除 text 为 undefined的选项
             newValues.options = newValues.options.filter(opt => !(opt.text === null))
         }
-        const { options = []} = newValues
+        const { options = [] } = newValues
         options.forEach(opt => {
-            if(opt.value) return
+            if (opt.value) return
             opt.value = nanoid(5) // 补齐 opt value
         })
         onChange(newValues)
@@ -66,9 +66,7 @@ export const RadioProps = (props: ComponentRadioProps) => {
             </Form.List>
         </Form.Item>
         <Form.Item label={'默认选中'} name={'value'}>
-            <Select value={value} options={options?.map(({ text, value }) => ({ label: text || '', value }))}>
-
-            </Select>
+            <Select value={value} options={options?.map(({ text, value }) => ({ label: text || '', value }))}></Select>
         </Form.Item>
         <Form.Item name={'isVertical'} valuePropName={"checked"}>
             <Checkbox>竖向排列</Checkbox>
