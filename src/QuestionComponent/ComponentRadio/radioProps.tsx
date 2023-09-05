@@ -17,7 +17,7 @@ export const RadioProps = (props: ComponentRadioProps) => {
         const newValues = form.getFieldsValue() as ComponentRadioProps
         if (newValues.options) {
             // 需要清除 text 为 undefined的选项
-            newValues.options = newValues.options.filter(opt => !(opt.text === null))
+            newValues.options = newValues.options.filter(opt => opt.text.length !== null)
         }
         const { options = [] } = newValues
         options.forEach(opt => {

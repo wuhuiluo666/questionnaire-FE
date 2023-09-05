@@ -1,6 +1,6 @@
+import { FC } from 'react'
 import { ComponentTitleProps } from './ComponentTitle'
 import { ComponentInputProps } from './ComponentInput'
-import { FC } from 'react'
 import { ComponentInputConfig } from './ComponentInput/component'
 import { ComponentTitleConfig } from './ComponentTitle/component'
 import { ComponentParagraphProps } from './ComponentParagraph'
@@ -11,6 +11,8 @@ import { ComponentTextAreaProps } from './ComponentTextArea'
 import { ComponentTextAreaConfig } from './ComponentTextArea/component'
 import { ComponentRadioConfig } from './ComponentRadio/component'
 import { ComponentRadioProps } from './ComponentRadio'
+import { ComponentCheckBoxProps } from './ComponentCheckbox'
+import { ComponentCheckBoxConfig } from './ComponentCheckbox/component'
 
 // 所有组件的属性
 export type AllComponentProps = ComponentInputProps &
@@ -18,7 +20,8 @@ export type AllComponentProps = ComponentInputProps &
   ComponentParagraphProps &
   ComponentInfoProps &
   ComponentTextAreaProps &
-  ComponentRadioProps
+  ComponentRadioProps &
+  ComponentCheckBoxProps
 
 // 所有组件的配置
 export type ComponentConfig = {
@@ -35,7 +38,8 @@ export const ComponentConfigList: ComponentConfig[] = [
   ComponentParagraphConfig,
   ComponentInfoConfig,
   ComponentTextAreaConfig,
-  ComponentRadioConfig
+  ComponentRadioConfig,
+  ComponentCheckBoxConfig
 ]
 
 // 左侧所有组件分类
@@ -57,7 +61,7 @@ export const ComponentConfigGroup = [
   {
     group_id: 'Group_Radio',
     groupName: '用户选择',
-    components: [ComponentRadioConfig]
+    components: [ComponentRadioConfig, ComponentCheckBoxConfig]
   }
 ]
 
