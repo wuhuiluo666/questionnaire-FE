@@ -14,7 +14,6 @@ import { ComponentRadioProps } from './ComponentRadio'
 import { ComponentCheckBoxProps } from './ComponentCheckbox'
 import { ComponentCheckBoxConfig } from './ComponentCheckbox/component'
 
-// 所有组件的属性
 export type AllComponentProps = ComponentInputProps &
   ComponentTitleProps &
   ComponentParagraphProps &

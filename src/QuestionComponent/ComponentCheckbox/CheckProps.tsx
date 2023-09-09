@@ -24,7 +24,7 @@ export const CheckBoxProps = (props: ComponentCheckBoxProps) => {
         onChange(newValues)
     }
     useEffect(() => {
-        // form.setFieldsValue({ title, isVertical, list })
+        form.setFieldsValue({ title, isVertical, list })
     }, [title, isVertical, list])
     return <Form onValuesChange={handleValuesChange} disabled={isLocked} layout={'vertical'} form={form} initialValues={{ title, isVertical, list }}>
         <Form.Item label={'标题'} name={'title'} rules={[{ required: true, message: '标题不能为空' }]}>
