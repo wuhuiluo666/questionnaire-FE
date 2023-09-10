@@ -171,7 +171,20 @@ export const ComponentsSlice = createSlice({
       if (curCompIndex < 0 || curCompIndex + 1 === componentsList.length) return
       const newSelectedId = componentsList[curCompIndex + 1].fe_id
       draft.selectedId = newSelectedId
-    })
+    }),
+    // 改变组件标题
+    changeComponentTitle: produce(
+      (
+        draft: ComponentsStateProps,
+        action: PayloadAction<{ fe_id: string; title: string }>
+      ) => {
+        const { componentsList } = draft
+        const { fe_id, title } = action.payload
+        const curComp = componentsList.find((c) => c.fe_id === fe_id)
+        if (curComp === undefined) return
+        curComp.title = title
+      }
+    )
   }
 })
 
@@ -186,6 +199,7 @@ export const {
   copyNewComponent,
   pasteComponent,
   upArrow,
-  downArrow
+  downArrow,
+  changeComponentTitle
 } = ComponentsSlice.actions
 export default ComponentsSlice.reducer

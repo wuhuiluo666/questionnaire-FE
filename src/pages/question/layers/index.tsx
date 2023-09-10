@@ -5,13 +5,14 @@ import { EyeInvisibleOutlined, LockOutlined } from '@ant-design/icons'
 import { useGetComponentsList } from '../../../hooks/useGetComponentsList'
 import { Button, Input, message, Space } from 'antd'
 import { useDispatch } from 'react-redux'
-import { changeSelectedId } from '../../../store/componentList'
+import { changeSelectedId, changeComponentTitle } from '../../../store/componentList'
 
 export const Layers = () => {
     const titleDefaultClassName = styles.title
     const selectedClassName = styles.selected
     const dispatch = useDispatch()
     const { componentsList, selectedId } = useGetComponentsList()
+    // 判断左侧点击的组件右侧是否对应
     const [changingTitleId, setChangingTitleId] = useState('')
     // 点击图层标题
     const handleTitleClick = (id: string) => {
@@ -21,6 +22,7 @@ export const Layers = () => {
             return
         }
         if (id !== selectedId) {
+            // 不是选中的组件将selectedId置为那个后，清空changingTitleId(不要出现输入框)
             dispatch(changeSelectedId(id))
             setChangingTitleId('')
             return
@@ -28,7 +30,9 @@ export const Layers = () => {
         setChangingTitleId(id)
     }
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log('e', e.target.value)
+        const newTitle = e.target.value.trim()
+        if (!newTitle) return
+        dispatch(changeComponentTitle({ fe_id: selectedId, title: newTitle }))
     }
     return <>
         {
@@ -42,7 +46,7 @@ export const Layers = () => {
                 return (
                     <div key={fe_id} className={styles.wrapper}>
                         <div className={titleClassName} onClick={() => handleTitleClick(fe_id)}>
-                            {changingTitleId === fe_id && <Input value={title} onChange={changeTitle} />}
+                            {changingTitleId === fe_id && <Input onPressEnter={() => setChangingTitleId('')} onBlur={() => setChangingTitleId('')} value={title} onChange={changeTitle} />}
                             {changingTitleId !== fe_id && title}
                         </div>
                         <div className={styles.handler}>
