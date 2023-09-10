@@ -112,7 +112,7 @@ export const ComponentsSlice = createSlice({
           (component) => component.fe_id === fe_id
         )
         if (curComp) {
-          curComp.isHidden = hidden
+          curComp.isHidden = hidden // 如果先改变这个的话 genNewSelectedId的数组会改变
         }
       }
     ),

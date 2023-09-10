@@ -4,7 +4,7 @@ export const genNewSelectedId = (
   fe_id: string,
   componentsList: ComponentProps[]
 ) => {
-  // 拿到当前选中元素的下表、、
+  // 拿到当前选中元素的下标
   const visibleComponentList = componentsList.filter(component => !component.isHidden)
   const currentComponentIndex = visibleComponentList.findIndex(component => component.fe_id === fe_id)
   // 没选中
@@ -14,6 +14,7 @@ export const genNewSelectedId = (
   // 选中
   let newSelectedId
   const len = visibleComponentList.length
+  // 只有一项也是直接为空
   if(len <= 1) {
     return ''
   }

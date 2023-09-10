@@ -5,7 +5,7 @@ import { EyeInvisibleOutlined, LockOutlined } from '@ant-design/icons'
 import { useGetComponentsList } from '../../../hooks/useGetComponentsList'
 import { Button, Input, message, Space } from 'antd'
 import { useDispatch } from 'react-redux'
-import { changeSelectedId, changeComponentTitle } from '../../../store/componentList'
+import { changeSelectedId, changeComponentTitle, lockedComponent, hiddenComponent } from '../../../store/componentList'
 
 export const Layers = () => {
     const titleDefaultClassName = styles.title
@@ -34,6 +34,12 @@ export const Layers = () => {
         if (!newTitle) return
         dispatch(changeComponentTitle({ fe_id: selectedId, title: newTitle }))
     }
+    const hideComponent = (fe_id: string, hidden: boolean) => {
+        dispatch(hiddenComponent({ fe_id, hidden }))
+    }
+    const lockComponent = (fe_id: string) => {
+        dispatch(lockedComponent({ fe_id }))
+    }
     return <>
         {
             componentsList.map(c => {
@@ -51,8 +57,8 @@ export const Layers = () => {
                         </div>
                         <div className={styles.handler}>
                             <Space>
-                                <Button className={!isHidden ? styles.btn : ''} size={'small'} shape={'circle'} type={isHidden ? 'primary' : 'text'} icon={<EyeInvisibleOutlined />}></Button>
-                                <Button className={!isLocked ? styles.btn : ''} size={'small'} shape={'circle'} type={isLocked ? 'primary' : 'text'} icon={<LockOutlined ></LockOutlined>}></Button>
+                                <Button onClick={() => hideComponent(fe_id, !isHidden)} className={!isHidden ? styles.btn : ''} size={'small'} shape={'circle'} type={isHidden ? 'primary' : 'text'} icon={<EyeInvisibleOutlined />}></Button>
+                                <Button onClick={() => lockComponent(fe_id)} className={!isLocked ? styles.btn : ''} size={'small'} shape={'circle'} type={isLocked ? 'primary' : 'text'} icon={<LockOutlined ></LockOutlined>}></Button>
                             </Space>
                         </div>
                     </div>
