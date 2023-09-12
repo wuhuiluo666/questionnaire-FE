@@ -1,10 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Tabs } from 'antd'
 import { FileTextOutlined, SettingOutlined } from '@ant-design/icons'
 import { PropsForm } from '../PropsForm'
+import { PageSetting } from '../pageSetting'
+import { useGetComponentsList } from '../../../hooks/useGetComponentsList'
 
+enum tabType {
+    TAB_PROPS = 'prop',
+    TAB_SETTINGS = 'settings'
+}
 
 export const RightPanel = () => {
+    const [activeKey, setActiveKey] = useState('prop')
+    const { selectedId } = useGetComponentsList()
+    useEffect(() => {
+        if (selectedId) {
+            setActiveKey(tabType.TAB_PROPS)
+        } else {
+            setActiveKey(tabType.TAB_SETTINGS)
+        }
+    }, [selectedId])
     const tabsItem = [
         {
             key: 'prop',
@@ -22,10 +37,8 @@ export const RightPanel = () => {
                 <SettingOutlined />
                 页面设置
             </span>,
-            children: <div>
-                页面设置
-            </div>
+            children: <PageSetting />
         }
     ]
-    return <Tabs defaultActiveKey={'prop'} items={tabsItem} />
+    return <Tabs activeKey={activeKey} items={tabsItem} />
 }
