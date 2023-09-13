@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { getQuestionDetail } from '../services/question'
 import { resetComponents } from '../store/componentList'
 import { useDispatch } from 'react-redux'
+import { resetPageInfo } from '../store/pageInfo'
 
 export const useGetQuestionDetail = () => {
   const dispatch = useDispatch()
@@ -21,7 +22,7 @@ export const useGetQuestionDetail = () => {
 
   useEffect(() => {
     if (!data) return
-    const { componentsList = [] } = data
+    const { title, desc, css, js, componentsList = [] } = data
     let selectedId = ''
     if (componentsList.length) {
       selectedId = componentsList[0].fe_id
@@ -33,6 +34,12 @@ export const useGetQuestionDetail = () => {
         copyComponent: null
       })
     )
+    dispatch(resetPageInfo({
+      title,
+      desc,
+      css,
+      js
+    }))
   }, [data])
   useEffect(() => {
     run()
