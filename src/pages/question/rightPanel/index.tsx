@@ -13,6 +13,9 @@ enum tabType {
 export const RightPanel = () => {
     const [activeKey, setActiveKey] = useState('prop')
     const { selectedId } = useGetComponentsList()
+    const changeActiveKey = (key: string) => {
+        setActiveKey(key)
+    }
     useEffect(() => {
         if (selectedId) {
             setActiveKey(tabType.TAB_PROPS)
@@ -40,5 +43,5 @@ export const RightPanel = () => {
             children: <PageSetting />
         }
     ]
-    return <Tabs activeKey={activeKey} items={tabsItem} />
+    return <Tabs onChange={changeActiveKey} activeKey={activeKey} items={tabsItem} />
 }
