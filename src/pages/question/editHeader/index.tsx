@@ -1,14 +1,15 @@
-import { EditOutlined, LeftOutlined } from '@ant-design/icons'
+import { EditOutlined, LeftOutlined, LoadingOutlined } from '@ant-design/icons'
 import { Button, Input, Space, Typography, InputRef } from 'antd'
 import React, { useState, ChangeEvent, useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useGetComponentsList } from '../../../hooks/useGetComponentsList'
 import { useGetPageInfo } from '../../../hooks/useGetPageInfo'
 import { changePageTitle } from '../../../store/pageInfo'
-import { useRequest } from 'ahooks'
+import { useRequest, useKeyPress, useDebounceEffect } from 'ahooks'
 import { EditToolBar } from '../editToolbar'
 import styles from './index.module.scss'
+import { changeQuestionStar } from '../../../services/question'
 
 const { Title } = Typography
 
@@ -38,15 +39,28 @@ const TitleEle = () => {
 }
 
 const SaveButton = () => {
+    const { id } = useParams()
     // 需要更新的信息 pageInfo,componentList
     const { title, desc, js, css } = useGetPageInfo()
     const { componentsList } = useGetComponentsList()
-    const { } = useRequest(async () => {
-
+    const { loading, run: save } = useRequest(async () => {
+        if (id) {
+            await changeQuestionStar(id, { componentsList, title, desc, js, css })
+        }
     }, {
         manual: true // 因为要点击所以是手动触发
     })
-    return <Button>发布</Button>
+    useKeyPress(['ctrl.s'], (event: KeyboardEvent) => {
+        // 阻止页面默认行为
+        event.preventDefault()
+        // 如果在加载就不触发,没有加载才触发
+        if (!loading) save()
+    })
+    // 防抖
+    useDebounceEffect(() => {
+        save()
+    }, [title, desc, js, css, componentsList], { wait: 100 })
+    return <Button onClick={save} icon={loading ? <LoadingOutlined /> : null} disabled={loading}>发布</Button>
 }
 
 export const EditHeader = () => {
