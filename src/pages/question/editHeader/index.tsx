@@ -1,5 +1,5 @@
 import { EditOutlined, LeftOutlined, LoadingOutlined } from '@ant-design/icons'
-import { Button, Input, Space, Typography, InputRef } from 'antd'
+import { Button, Input, Space, Typography, InputRef, message } from 'antd'
 import React, { useState, ChangeEvent, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -60,7 +60,25 @@ const SaveButton = () => {
     useDebounceEffect(() => {
         save()
     }, [title, desc, js, css, componentsList], { wait: 100 })
-    return <Button onClick={save} icon={loading ? <LoadingOutlined /> : null} disabled={loading}>发布</Button>
+    return <Button onClick={save} icon={loading ? <LoadingOutlined /> : null} disabled={loading}>保存</Button>
+}
+
+const PublishButton = () => {
+    const nav = useNavigate()
+    const { id } = useParams()
+    const { title, desc, js, css } = useGetPageInfo()
+    const { componentsList } = useGetComponentsList()
+    const { loading, run: Publish } = useRequest(async () => {
+        if (!id) return
+        await changeQuestionStar(id, { title, desc, js, css, componentsList, isPublished: true })
+    }, {
+        manual: true,
+        onSuccess: () => {
+            message.success('发布成功')
+            nav(`/question/static/${id}`)
+        }
+    })
+    return <Button onClick={Publish} loading={loading} disabled={loading} type={'primary'}>发布</Button>
 }
 
 export const EditHeader = () => {
@@ -79,7 +97,7 @@ export const EditHeader = () => {
             <div className={styles.right}>
                 <Space>
                     <SaveButton />
-                    <Button type={'primary'}>保存</Button>
+                    <PublishButton />
                 </Space>
             </div>
         </div>
