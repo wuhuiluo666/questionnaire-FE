@@ -10,33 +10,6 @@ import { changeQuestionStar, deleteQuestion } from '../../../services/question'
 
 const { Title } = Typography
 
-const tableList = [
-    {
-        _id: 'q1',
-        title: '问卷1',
-        isPublished: true,
-        isStar: true,
-        answerCount: 5,
-        createdAt: '3月15日 13:23'
-    },
-    {
-        _id: 'q2',
-        title: '问卷2',
-        isPublished: false,
-        isStar: true,
-        answerCount: 15,
-        createdAt: '3月14日 13:23'
-    },
-    {
-        _id: 'q3',
-        title: '问卷3',
-        isPublished: false,
-        isStar: true,
-        answerCount: 25,
-        createdAt: '3月12日 13:23'
-    },
-]
-
 const tableColumns = [
     {
         title: '问卷名',
