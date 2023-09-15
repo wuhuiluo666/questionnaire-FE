@@ -191,7 +191,12 @@ export const ComponentsSlice = createSlice({
       (
         draft: ComponentsStateProps,
         action: PayloadAction<{ activeIndex: number; overIndex: number }>
-      ) => {}
+      ) => {
+        const { componentsList } = draft
+        const { activeIndex, overIndex } = action.payload
+        const newList = arrayMove(componentsList, activeIndex, overIndex)
+        draft.componentsList = newList
+      }
     )
   }
 })
@@ -208,6 +213,7 @@ export const {
   pasteComponent,
   upArrow,
   downArrow,
-  changeComponentTitle
+  changeComponentTitle,
+  moveComponent
 } = ComponentsSlice.actions
 export default ComponentsSlice.reducer

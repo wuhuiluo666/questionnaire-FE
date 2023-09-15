@@ -2,6 +2,8 @@ import React from 'react'
 import { DndContext, DragEndEvent, closestCenter, MouseSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { restrictToParentElement } from '@dnd-kit/modifiers'
+import { useDispatch } from 'react-redux'
+import { moveComponent } from '../../store/componentList'
 
 type PropsType = {
     children: JSX.Element | JSX.Element[],
@@ -10,6 +12,7 @@ type PropsType = {
 
 export const SortableContainer = (props: PropsType) => {
     const { children, items } = props
+    const dispatch = useDispatch()
     const sensors = useSensors(
         useSensor(MouseSensor, {
             activationConstraint: {
@@ -24,6 +27,7 @@ export const SortableContainer = (props: PropsType) => {
         if (active.id !== over.id) {
             const activeIndex = items.findIndex(item => item.id === active.id)
             const overIndex = items.findIndex(item => item.id === over.id)
+            dispatch(moveComponent({ activeIndex, overIndex }))
         }
     }
     return <DndContext onDragEnd={handleDragEnd} sensors={sensors} collisionDetection={closestCenter} modifiers={[restrictToParentElement]}>
