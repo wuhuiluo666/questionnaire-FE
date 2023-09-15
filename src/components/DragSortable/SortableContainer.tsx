@@ -2,7 +2,6 @@ import React from 'react'
 import { DndContext, DragEndEvent, closestCenter, MouseSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { restrictToParentElement } from '@dnd-kit/modifiers'
-import { CSS } from '@dnd-kit/utilities'
 
 type PropsType = {
     children: JSX.Element | JSX.Element[],
@@ -18,7 +17,16 @@ export const SortableContainer = (props: PropsType) => {
             }
         })
     )
-    return <DndContext sensors={sensors} collisionDetection={closestCenter} modifiers={[restrictToParentElement]}>
+    const handleDragEnd = (dragItem: DragEndEvent) => {
+        console.log('dragItem', dragItem)
+        const { active, over } = dragItem
+        if (over === null) return
+        if (active.id !== over.id) {
+            const activeIndex = items.findIndex(item => item.id === active.id)
+            const overIndex = items.findIndex(item => item.id === over.id)
+        }
+    }
+    return <DndContext onDragEnd={handleDragEnd} sensors={sensors} collisionDetection={closestCenter} modifiers={[restrictToParentElement]}>
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
             {children}
         </SortableContext>

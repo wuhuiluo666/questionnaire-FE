@@ -5,6 +5,7 @@ import { nanoid } from 'nanoid'
 import { useAddComponent } from '../hooks/useAddComponent'
 import { AllComponentProps } from '../QuestionComponent'
 import { genNewSelectedId } from '../utils/returnSelected'
+import { arrayMove } from '@dnd-kit/sortable'
 
 // 单个组件的属性
 export type ComponentProps = {
@@ -184,6 +185,13 @@ export const ComponentsSlice = createSlice({
         if (curComp === undefined) return
         curComp.title = title
       }
+    ),
+    // 移动组件
+    moveComponent: produce(
+      (
+        draft: ComponentsStateProps,
+        action: PayloadAction<{ activeIndex: number; overIndex: number }>
+      ) => {}
     )
   }
 })

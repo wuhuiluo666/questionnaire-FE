@@ -16,7 +16,7 @@ export const SortableItem = (props: PropsType) => {
         transform: CSS.Transform.toString(transform),
         transition
     }
-    return <div ref={setNodeRef} {...listeners} {...attributes}>
+    return <div ref={setNodeRef} {...listeners} {...attributes} style={style}>
         {children}
     </div>
 }
