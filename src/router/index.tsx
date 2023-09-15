@@ -13,6 +13,7 @@ import Star from '../pages/manage/Star/Star'
 import Trash from '../pages/manage/Trash/Trash'
 import Edit from '../pages/question/edit/Index'
 import Static from '../pages/question/static/Index'
+import { Drag } from '../pages/drag'
 
 
 const router = createBrowserRouter([{
@@ -30,6 +31,10 @@ const router = createBrowserRouter([{
         {
             path: 'register',
             element: <Register />
+        },
+        {
+            path: 'drag',
+            element: <Drag />
         },
         {
             path: 'manage',
