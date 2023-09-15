@@ -7,13 +7,17 @@ import { changeSelectedId } from '../../../store/componentList'
 import { LeftPanel } from '../leftPanel'
 import { RightPanel } from '../rightPanel'
 import { EditHeader } from '../editHeader'
+import { useTitle } from 'ahooks'
+import { useGetPageInfo } from '../../../hooks/useGetPageInfo'
 
 const Edit = () => {
+    const { title } = useGetPageInfo()
     const { loading } = useGetQuestionDetail()
     const dispatch = useDispatch()
     const clearSelectId = () => {
         dispatch(changeSelectedId(''))
     }
+    useTitle(`问卷编辑 - ${title}`)
     return <div className={styles['edit-container']}>
         <EditHeader />
         <div className={styles['content-wrapper']}>

@@ -6,13 +6,15 @@ export type PageInfoStateProps = {
   desc?: string
   js?: string
   css?: string
+  isPublished?: boolean
 }
 
 const initialState: PageInfoStateProps = {
   title: '',
   desc: '',
   js: '',
-  css: ''
+  css: '',
+  isPublished: false
 }
 
 export const PageInfoSlice = createSlice({

@@ -22,7 +22,7 @@ export const useGetQuestionDetail = () => {
 
   useEffect(() => {
     if (!data) return
-    const { title, desc, css, js, componentsList = [] } = data
+    const { title, desc, css, js, isPublished, componentsList = [] } = data
     let selectedId = ''
     if (componentsList.length) {
       selectedId = componentsList[0].fe_id
@@ -34,12 +34,15 @@ export const useGetQuestionDetail = () => {
         copyComponent: null
       })
     )
-    dispatch(resetPageInfo({
-      title,
-      desc,
-      css,
-      js
-    }))
+    dispatch(
+      resetPageInfo({
+        title,
+        desc,
+        css,
+        js,
+        isPublished
+      })
+    )
   }, [data])
   useEffect(() => {
     run()
