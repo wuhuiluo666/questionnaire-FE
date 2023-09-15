@@ -5,7 +5,7 @@ import { EyeInvisibleOutlined, LockOutlined } from '@ant-design/icons'
 import { useGetComponentsList } from '../../../hooks/useGetComponentsList'
 import { Button, Input, message, Space } from 'antd'
 import { useDispatch } from 'react-redux'
-import { changeSelectedId, changeComponentTitle, lockedComponent, hiddenComponent } from '../../../store/componentList'
+import { changeSelectedId, changeComponentTitle, lockedComponent, hiddenComponent, moveComponent } from '../../../store/componentList'
 import { SortableContainer } from '../../../components/DragSortable/SortableContainer'
 import { SortableItem } from '../../drag/SortableItem'
 
@@ -44,7 +44,10 @@ export const Layers = () => {
     const lockComponent = (fe_id: string) => {
         dispatch(lockedComponent({ fe_id }))
     }
-    return <SortableContainer items={componentsWithId}>
+    const handleDrag = (activeIndex: number, overIndex: number) => {
+        dispatch(moveComponent({ activeIndex, overIndex }))
+    }
+    return <SortableContainer items={componentsWithId} onDragEnd={handleDrag}>
         {
             componentsList.map(c => {
                 // isHidden默认是false 没有被隐藏
