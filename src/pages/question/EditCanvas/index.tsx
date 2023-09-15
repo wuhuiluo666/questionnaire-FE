@@ -2,12 +2,14 @@ import React from 'react'
 import styles from './index.module.scss'
 import { useGetComponentsList } from '../../../hooks/useGetComponentsList'
 import { Spin } from 'antd'
-import { ComponentProps } from '../../../store/componentList'
+import { ComponentProps, moveComponent } from '../../../store/componentList'
 import { GetComponentByType } from '../../../QuestionComponent'
 import { changeSelectedId } from '../../../store/componentList'
 import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
 import { useBindCanvasKeyPress } from '../../../hooks/useBindCanvasKeyPress'
+import { SortableContainer } from '../../../components/DragSortable/SortableContainer'
+import { SortableItem } from '../../drag/SortableItem'
 
 export const EditCanvas = ({ loading }: { loading: boolean }) => {
     const dispatch = useDispatch()
@@ -26,28 +28,36 @@ export const EditCanvas = ({ loading }: { loading: boolean }) => {
         dispatch(changeSelectedId(id))
     }
     const { componentsList, selectedId } = useGetComponentsList() // redux获取componentsList
+    const componentListWithId = componentsList.map(c => ({ ...c, id: c.fe_id }))
+    const handleDragEnd = (activeIndex: number, overIndex: number) => {
+        dispatch(moveComponent({ activeIndex, overIndex }))
+    }
     useBindCanvasKeyPress()
     if (loading) {
         return <Spin size={'large'} style={{ position: 'relative', top: '50%', left: '50%' }} />
     }
-    return <div className={styles.canvas}>
-        {
-            componentsList.filter(visible => !visible.isHidden).map((component: ComponentProps) => {
-                const { fe_id, isLocked } = component
-                const defaultComponentClassName = styles['component-wrapper']
-                const selectedComponentClassName = styles.selected
-                const lockedComponentClassName = styles.locked
-                const ComponentClassName = classNames({
-                    [defaultComponentClassName]: true,
-                    [selectedComponentClassName]: fe_id === selectedId,
-                    [lockedComponentClassName]: isLocked
+    return <SortableContainer items={componentListWithId} onDragEnd={handleDragEnd}>
+        <div className={styles.canvas}>
+            {
+                componentsList.filter(visible => !visible.isHidden).map((component: ComponentProps) => {
+                    const { fe_id, isLocked } = component
+                    const defaultComponentClassName = styles['component-wrapper']
+                    const selectedComponentClassName = styles.selected
+                    const lockedComponentClassName = styles.locked
+                    const ComponentClassName = classNames({
+                        [defaultComponentClassName]: true,
+                        [selectedComponentClassName]: fe_id === selectedId,
+                        [lockedComponentClassName]: isLocked
+                    })
+                    return <SortableItem key={fe_id} id={fe_id}>
+                        <div onClick={(e: any) => clickComponnet(e, fe_id)} key={fe_id} className={ComponentClassName}>
+                            <div className={styles.component}>
+                                {genComponent(component)}
+                            </div>
+                        </div>
+                    </SortableItem>
                 })
-                return <div onClick={(e: any) => clickComponnet(e, fe_id)} key={fe_id} className={ComponentClassName}>
-                    <div className={styles.component}>
-                        {genComponent(component)}
-                    </div>
-                </div>
-            })
-        }
-    </div>
+            }
+        </div>
+    </SortableContainer>
 }
