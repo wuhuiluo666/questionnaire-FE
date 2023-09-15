@@ -3,6 +3,7 @@ import { Result, Spin, Button } from 'antd'
 import { useGetPageInfo } from '../../../hooks/useGetPageInfo'
 import { useGetQuestionDetail } from '../../../hooks/useLoadQuestionData'
 import { useNavigate } from 'react-router-dom'
+import { StaticHeader } from './header'
 
 
 const Static = () => {
@@ -21,9 +22,9 @@ const Static = () => {
     //     return <Result status={'warning'} title={'问卷暂未发布'} extra={<Button type={'primary'} onClick={() => nav(-1)}>返回上一页</Button>}>
     //     </Result>
     // }
-    return <>
-        Static
-    </>
+    return <div>
+        <StaticHeader />
+    </div>
 }
 
 export default Static
