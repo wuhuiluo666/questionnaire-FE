@@ -1,14 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Result, Spin, Button } from 'antd'
 import { useGetPageInfo } from '../../../hooks/useGetPageInfo'
 import { useGetQuestionDetail } from '../../../hooks/useLoadQuestionData'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { StaticHeader } from './header'
 import styles from './index.module.scss'
 import { ComponentList } from '../../../components/ComponentList.tsx'
+import { useRequest } from 'ahooks'
+import { getStaticListService } from '../../../services/static'
 
 
 const Static = () => {
+    const { id = '' } = useParams()
+    const { loading: loadingTb } = useRequest(async () => {
+        const data = await getStaticListService(id, { page: 1, pageSize: 10 })
+        return data
+    },
+        {
+            onSuccess: (data) => {
+                console.log('data', data)
+            }
+        }
+    )
+    const [selectedComponentId, setSelectedComponentId] = useState('')
     const { loading } = useGetQuestionDetail()
     const { title, isPublished } = useGetPageInfo()
     const nav = useNavigate()
@@ -25,7 +39,7 @@ const Static = () => {
         // }
         return <>
             <div className={styles.left}>
-                <ComponentList />
+                <ComponentList selectedComponentId={selectedComponentId} setSelectedComponentId={setSelectedComponentId} />
             </div>
             <div className={styles.main}>Main</div>
             <div className={styles.right}>Right</div>
