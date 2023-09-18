@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Result, Spin, Button } from 'antd'
+import { Result, Spin, Button, Table, Typography } from 'antd'
 import { useGetPageInfo } from '../../../hooks/useGetPageInfo'
 import { useGetQuestionDetail } from '../../../hooks/useLoadQuestionData'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -8,17 +8,23 @@ import styles from './index.module.scss'
 import { ComponentList } from '../../../components/ComponentList.tsx'
 import { useRequest } from 'ahooks'
 import { getStaticListService } from '../../../services/static'
+import { useGetComponentsList } from '../../../hooks/useGetComponentsList'
 
 
 const Static = () => {
     const { id = '' } = useParams()
+    const [list, setList] = useState([])
+    const [total, setTotal] = useState(0)
+    const { componentsList } = useGetComponentsList()
     const { loading: loadingTb } = useRequest(async () => {
         const data = await getStaticListService(id, { page: 1, pageSize: 10 })
         return data
     },
         {
             onSuccess: (data) => {
-                console.log('data', data)
+                const { list = [], total = 0 } = data
+                setList(list)
+                setTotal(total)
             }
         }
     )
@@ -31,6 +37,19 @@ const Static = () => {
             <Spin />
         </div>
     )
+    const columns = componentsList.map(c => {
+        const { fe_id } = c
+        return {
+            dataIndex: fe_id,
+            title: (
+                <span key={fe_id} onClick={() => setSelectedComponentId(fe_id)} style={{ cursor: 'pointer', color: selectedComponentId === fe_id ? '#1890ff' : '' }}>
+                    {c.title}
+                </span>
+            )
+        }
+    })
+    console.log('columns', columns)
+    console.log('list', list)
     const genContentElement = () => {
         // 未发布
         // if (typeof isPublished === 'boolean' && !isPublished) {
@@ -41,7 +60,10 @@ const Static = () => {
             <div className={styles.left}>
                 <ComponentList selectedComponentId={selectedComponentId} setSelectedComponentId={setSelectedComponentId} />
             </div>
-            <div className={styles.main}>Main</div>
+            <div className={styles.main}>
+                <Typography.Title level={3} style={{ marginTop: 0 }}>答卷数量: {total}</Typography.Title>
+                <Table rowKey={(c: any) => c._id} dataSource={list} columns={columns} loading={loadingTb} pagination={false} />
+            </div>
             <div className={styles.right}>Right</div>
         </>
     }
