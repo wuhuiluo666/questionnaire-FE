@@ -1,5 +1,6 @@
 import React from 'react'
-import { CopyOutlined, DeleteOutlined, EyeInvisibleOutlined, HeartOutlined, LockOutlined, UpOutlined, DownOutlined } from '@ant-design/icons'
+import { ActionCreators as undoActionCreators } from 'redux-undo'
+import { CopyOutlined, DeleteOutlined, EyeInvisibleOutlined, HeartOutlined, LockOutlined, UpOutlined, DownOutlined, UndoOutlined, RedoOutlined } from '@ant-design/icons'
 import { Button, Space, Tooltip } from 'antd'
 import { useDispatch } from 'react-redux'
 import { copyNewComponent, deleteComponent, hiddenComponent, lockedComponent, moveComponent, pasteComponent } from '../../../store/componentList'
@@ -36,6 +37,14 @@ export const EditToolBar = () => {
         // 下移
         dispatch(moveComponent({ activeIndex: curIndex, overIndex: curIndex + 1 }))
     }
+    // 重做
+    const redo = () => {
+        dispatch(undoActionCreators.redo())
+    }
+    // 撤销
+    const undo = () => {
+        dispatch(undoActionCreators.undo())
+    }
     return <div>
         <Space>
             <Tooltip title={'删除'}>
@@ -59,6 +68,12 @@ export const EditToolBar = () => {
             </Tooltip>
             <Tooltip title={'下移'}>
                 <Button onClick={downComp} shape={'circle'} icon={<DownOutlined />} disabled={last}></Button>
+            </Tooltip>
+            <Tooltip title={'撤销'}>
+                <Button onClick={undo} shape={'circle'} icon={<UndoOutlined />} disabled={last}></Button>
+            </Tooltip>
+            <Tooltip title={'重做'}>
+                <Button onClick={redo} shape={'circle'} icon={<RedoOutlined />} disabled={last}></Button>
             </Tooltip>
         </Space>
     </div>

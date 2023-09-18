@@ -4,7 +4,7 @@ import { ComponentsStateProps } from '../store/componentList'
 
 export const useGetComponentsList = () => {
   const { componentsList, selectedId, copyComponent } = useSelector<StoreState>(
-    (state) => state.components
+    (state) => state.components.present
   ) as ComponentsStateProps
   // 找到当前选中的currentComponent
   const currentComponent = componentsList?.find(

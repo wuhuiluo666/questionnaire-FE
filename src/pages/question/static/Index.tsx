@@ -5,6 +5,7 @@ import { useGetQuestionDetail } from '../../../hooks/useLoadQuestionData'
 import { useNavigate } from 'react-router-dom'
 import { StaticHeader } from './header'
 import styles from './index.module.scss'
+import { ComponentList } from '../../../components/ComponentList.tsx'
 
 
 const Static = () => {
@@ -23,7 +24,9 @@ const Static = () => {
         //     </Result>
         // }
         return <>
-            <div className={styles.left}>Left</div>
+            <div className={styles.left}>
+                <ComponentList />
+            </div>
             <div className={styles.main}>Main</div>
             <div className={styles.right}>Right</div>
         </>
