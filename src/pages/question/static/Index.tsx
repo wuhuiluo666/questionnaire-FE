@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { Result, Spin, Button, Table, Typography } from 'antd'
 import { useGetPageInfo } from '../../../hooks/useGetPageInfo'
 import { useGetQuestionDetail } from '../../../hooks/useLoadQuestionData'
@@ -64,7 +65,24 @@ const Static = () => {
                 <Typography.Title level={3} style={{ marginTop: 0 }}>答卷数量: {total}</Typography.Title>
                 <Table rowKey={(c: any) => c._id} dataSource={list} columns={columns} loading={loadingTb} pagination={false} />
             </div>
-            <div className={styles.right}>Right</div>
+            <div className={styles.right}>
+                <div style={{ width: 400, height: 300 }}>
+                    <ResponsiveContainer height={'100%'} width={'100%'}>
+                        <BarChart width={400} height={300} margin={{
+                            top: 5,
+                            right: 30,
+                            left: 0,
+                            bottom: 5,
+                        }}>
+                            <CartesianGrid strokeDasharray={"3 3"}></CartesianGrid>
+                            <XAxis dataKey={'name'} />
+                            <YAxis />
+                            <Tooltip />
+                            <Bar dataKey={'count'} fill="#82ca9d" />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </div>
+            </div>
         </>
     }
     return <div className={styles.container}>
