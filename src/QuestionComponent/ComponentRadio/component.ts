@@ -1,4 +1,5 @@
 import { ComponentRadio, defaultProps } from '.'
+import { RadioStatic } from '../RadioComponent'
 import { RadioProps } from './radioProps'
 
 export const ComponentRadioConfig = {
@@ -6,5 +7,6 @@ export const ComponentRadioConfig = {
   type: 'questionRadio',
   Component: ComponentRadio,
   ComponentProps: RadioProps,
+  ChartComp: RadioStatic,
   defaultProps: defaultProps
 }

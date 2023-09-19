@@ -10,48 +10,9 @@ import { ComponentList } from '../../../components/ComponentList.tsx'
 import { useRequest } from 'ahooks'
 import { getStaticListService } from '../../../services/static'
 import { useGetComponentsList } from '../../../hooks/useGetComponentsList'
-
-const BarList: { name: string, count: number }[] = [
-    {
-        name: '11',
-        count: 222
-    },
-    {
-        name: '12',
-        count: 242
-    },
-    {
-        name: '13',
-        count: 232
-    },
-    {
-        name: '14',
-        count: 122
-    },
-]
-
-export const STAT_COLORS = [
-    '#2468F2',
-    '#A5E693',
-    '#FAD000',
-    '#F33E3E',
-    '#A985FF',
-    '#005C99',
-    '#87D26D',
-    '#FF8E52',
-    '#E62E6B',
-    '#98B8FF',
-]
+import { StaticChart } from '../../../components/ComponentList.tsx/compStatic'
 
 const Static = () => {
-    const pieList = [
-        { name: '饼图1', count: 1 },
-        { name: '饼图2', count: 2 },
-        { name: "饼图3", count: 3 }
-    ]
-    const sum = useMemo(() => {
-        return pieList.reduce((prev, cur) => prev + cur.count, 0)
-    }, [pieList])
     const { id = '' } = useParams()
     const [list, setList] = useState([])
     const [total, setTotal] = useState(0)
@@ -68,7 +29,8 @@ const Static = () => {
             }
         }
     )
-    const [selectedComponentId, setSelectedComponentId] = useState('')
+    const [selectedComponentId, setSelectedComponentId] = useState<string | null>(null)
+    const [selectedComponentType, setSelectedComponentType] = useState<string | null>(null)
     const { loading } = useGetQuestionDetail()
     const { title, isPublished } = useGetPageInfo()
     const nav = useNavigate()
@@ -78,11 +40,14 @@ const Static = () => {
         </div>
     )
     const columns = componentsList.map(c => {
-        const { fe_id } = c
+        const { fe_id, type } = c
         return {
             dataIndex: fe_id,
             title: (
-                <span key={fe_id} onClick={() => setSelectedComponentId(fe_id)} style={{ cursor: 'pointer', color: selectedComponentId === fe_id ? '#1890ff' : '' }}>
+                <span key={fe_id} onClick={() => {
+                    setSelectedComponentId(fe_id)
+                    setSelectedComponentType(type)
+                }} style={{ cursor: 'pointer', color: selectedComponentId === fe_id ? '#1890ff' : '' }}>
                     {c.title}
                 </span>
             )
@@ -97,13 +62,15 @@ const Static = () => {
         // }
         return <>
             <div className={styles.left}>
-                <ComponentList selectedComponentId={selectedComponentId} setSelectedComponentId={setSelectedComponentId} />
+                <ComponentList selectedComponentId={selectedComponentId || ''} setSelectedComponentId={setSelectedComponentId} />
             </div>
             <div className={styles.main}>
                 <Typography.Title level={3} style={{ marginTop: 0 }}>答卷数量: {total}</Typography.Title>
                 <Table rowKey={(c: any) => c._id} dataSource={list} columns={columns} loading={loadingTb} pagination={false} />
             </div>
             <div className={styles.right}>
+                <Typography.Title level={3} style={{ marginTop: 0 }}>图表统计:</Typography.Title>
+                <StaticChart selectedComponentId={selectedComponentId || ''} selectedComponentType={selectedComponentType || ''} />
                 {/* <div style={{ width: 400, height: 300 }}>
                     <ResponsiveContainer height={'100%'} width={'100%'}>
                         <BarChart data={BarList} width={400} height={300} margin={{
@@ -121,19 +88,6 @@ const Static = () => {
                         </BarChart>
                     </ResponsiveContainer>
                 </div> */}
-                <div style={{ width: 400, height: 400 }}>
-                    <ResponsiveContainer width={'100%'} height={'100%'}>
-                        <PieChart width={400} height={400}>
-                            <Pie label={i => `${i.name} - ${Number((i.count / sum).toFixed(2)) * 100}%`} outerRadius={50} cx={'50%'} cy={'50%'} data={pieList} dataKey={'count'}>
-                                {
-                                    pieList.map((p, index) => {
-                                        return <Cell key={index} fill={STAT_COLORS[index]}></Cell>
-                                    })
-                                }
-                            </Pie>
-                        </PieChart>
-                    </ResponsiveContainer>
-                </div>
             </div>
         </>
     }

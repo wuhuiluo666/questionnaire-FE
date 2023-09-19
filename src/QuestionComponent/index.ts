@@ -13,6 +13,7 @@ import { ComponentRadioConfig } from './ComponentRadio/component'
 import { ComponentRadioProps } from './ComponentRadio'
 import { ComponentCheckBoxProps } from './ComponentCheckbox'
 import { ComponentCheckBoxConfig } from './ComponentCheckbox/component'
+import { RadioStaticProps } from './RadioComponent'
 
 export type AllComponentProps = ComponentInputProps &
   ComponentTitleProps &
@@ -22,12 +23,15 @@ export type AllComponentProps = ComponentInputProps &
   ComponentRadioProps &
   ComponentCheckBoxProps
 
+export type CharComponentProps = RadioStaticProps
+
 // 所有组件的配置
 export type ComponentConfig = {
   title: string
   type: string
   Component: FC<AllComponentProps>
   ComponentProps: FC<AllComponentProps>
+  ChartComp?: FC<CharComponentProps>
   defaultProps: AllComponentProps
 }
 // 所有组件配置的列表
