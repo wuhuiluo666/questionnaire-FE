@@ -2,6 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #f0f2f4;
 }
 
 .content-wrapper {
@@ -16,6 +17,7 @@
   .left {
     width: 350px;
     margin-right: 24px;
+    background-color: #fff;
   }
 
   .main {
