@@ -23,5 +23,5 @@ export const StaticChart = (props: StaticCharProps) => {
     if (ChartComp === undefined) return <div>
         该组件暂无图表统计
     </div>
-    return <ChartComp chart=[] />
+    return <ChartComp chart={[]} />
 }
