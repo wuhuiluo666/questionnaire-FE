@@ -2,6 +2,7 @@ import { useRequest } from 'ahooks'
 import React from 'react'
 import { GetComponentByType } from '../../QuestionComponent'
 import { getChartListService } from '../../services/static'
+import { useParams } from 'react-router'
 
 interface StaticCharProps {
     selectedComponentId: string
@@ -21,6 +22,9 @@ export const StaticChart = (props: StaticCharProps) => {
        },
       },
     )
+    useEffect(() => {
+    if (selectedComponentId) run(id, selectedComponentId)
+    }, [id, selectedComponentId])
     if (!selectedComponentId) return <div style={{ textAlign: 'center', marginTop: '100px' }}>
         未选中任何组件
     </div>
