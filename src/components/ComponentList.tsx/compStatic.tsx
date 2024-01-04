@@ -1,5 +1,5 @@
 import { useRequest } from 'ahooks'
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { GetComponentByType } from '../../QuestionComponent'
 import { getChartListService } from '../../services/static'
 import { useParams } from 'react-router'
