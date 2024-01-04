@@ -14,7 +14,7 @@ export const StaticChart = (props: StaticCharProps) => {
     const { id = '' } = useParams()
     const [stat, setStat] = useState([])
     const { run } = useRequest(async (questionId, componentId) =>
-      await getComponentStatService(questionId, componentId),
+      await getChartListService(questionId, componentId),
       {
        manual: true,
        onSuccess(res) {
