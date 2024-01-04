@@ -1,7 +1,7 @@
 module.exports = {
   devServer: {
     proxy: {
-      '/api': 'http://localhost:3001'
+      '/api': 'https://question-server.onrender.com'
     }
   }
 }
