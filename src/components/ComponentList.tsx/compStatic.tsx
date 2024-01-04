@@ -9,19 +9,26 @@ interface StaticCharProps {
 }
 
 export const StaticChart = (props: StaticCharProps) => {
-    const { run: getChartList } = useRequest(async () => {
-        return await getChartListService()
-    })
     const { selectedComponentId, selectedComponentType } = props
+    const { id = '' } = useParams()
+    const [stat, setStat] = useState([])
+    const { run } = useRequest(async (questionId, componentId) =>
+      await getComponentStatService(questionId, componentId),
+      {
+       manual: true,
+       onSuccess(res) {
+        setStat(res.stat)
+       },
+      },
+    )
     if (!selectedComponentId) return <div style={{ textAlign: 'center', marginTop: '100px' }}>
         未选中任何组件
     </div>
     const componentConfig = GetComponentByType(selectedComponentType)
     if (componentConfig === undefined) return null
-    console.log('componentConfig', componentConfig)
     const { ChartComp } = componentConfig
     if (ChartComp === undefined) return <div>
         该组件暂无图表统计
     </div>
-    return <ChartComp chart={[]} />
+    return <ChartComp chart={stat} />
 }
