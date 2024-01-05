@@ -5,12 +5,11 @@ import { Layout, Spin } from 'antd'
 import Logo from '../../components/Logo/Logo'
 import UserInfo from '../../components/UserInfo/UserInfo'
 import { useGetUserInfo } from '../../hooks/useGetUserInfo'
-import { useNav } from '../../hooks/useNav'
+// import { useNav } from '../../hooks/useNav'
 const { Header, Content, Footer } = Layout
 
 const MainLayout = () => {
-    const [loading,setLoading] = useState(false)
-    // const { loading } = useGetUserInfo()
+    const { loading } = useGetUserInfo()
     // useNav(loading)
     return (
         <Layout>
