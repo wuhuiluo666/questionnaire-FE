@@ -6,7 +6,7 @@ export type ResDataType = {
 }
 
 export type ResType = {
-  error: number
+  errno: number
   data?: ResDataType
   msg?: string
 }
@@ -24,8 +24,8 @@ instance.interceptors.request.use(
 )
 
 instance.interceptors.response.use((res) => {
-  const { error, data, msg } = (res.data || {}) as ResType
-  if (error !== 0) {
+  const { errno, data, msg } = (res.data || {}) as ResType
+  if (errno !== 0) {
     // 错误提示
     if (msg) {
       message.error(msg)
