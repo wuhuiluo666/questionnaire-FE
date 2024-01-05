@@ -10,7 +10,7 @@ import {
 } from 'recharts'
 
 interface CheckboxStaticProps {
-    chart: { name: string, count: number }[]
+    stat: { name: string, count: number }[]
 }
 
 
