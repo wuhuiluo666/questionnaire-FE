@@ -1,8 +1,4 @@
 import React from 'react'
-
-interface CheckboxStaticProps {
-    chart: { name: string, count: number }[]
-}
 import {
   BarChart,
   Bar,
@@ -12,6 +8,10 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts'
+
+interface CheckboxStaticProps {
+    chart: { name: string, count: number }[]
+}
 
 
 const StatComponent: FC<CheckboxStaticProps> = ({ stat }) => {
