@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 
-interface CheckboxStaticProps {
+export interface CheckboxStaticProps {
     stat: { name: string, count: number }[]
 }
 
