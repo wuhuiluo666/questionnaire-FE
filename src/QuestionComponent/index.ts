@@ -14,6 +14,7 @@ import { ComponentRadioProps } from './ComponentRadio'
 import { ComponentCheckBoxProps } from './ComponentCheckbox'
 import { ComponentCheckBoxConfig } from './ComponentCheckbox/component'
 import { RadioStaticProps } from './RadioComponent'
+import { CheckboxStaticProps } from './CheckboxStatic'
 
 export type AllComponentProps = ComponentInputProps &
   ComponentTitleProps &
@@ -23,7 +24,7 @@ export type AllComponentProps = ComponentInputProps &
   ComponentRadioProps &
   ComponentCheckBoxProps
 
-export type CharComponentProps = RadioStaticProps
+export type CharComponentProps = RadioStaticProps | CheckboxStaticProps
 
 // 所有组件的配置
 export type ComponentConfig = {
