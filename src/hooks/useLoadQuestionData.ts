@@ -24,8 +24,8 @@ export const useGetQuestionDetail = () => {
     if (!data) return
     const { title, desc, css, js, isPublished, componentList = [] } = data
     let selectedId = ''
-    if (componentsList.length) {
-      selectedId = componentsList[0].fe_id
+    if (componentList.length) {
+      selectedId = componentList[0].fe_id
     }
     dispatch(
       resetComponents({
