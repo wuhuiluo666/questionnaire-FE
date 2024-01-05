@@ -22,7 +22,8 @@ const UserInfo = () => {
         <div style={{ display: 'flex', alignItems: 'center' }}>
             <UserOutlined style={{ color: '#e8e8e8' }} />
             <p style={{ color: '#e8e8e8' }}>
-                {nickName}
+                admin: 吴辉洛 
+{/*                 {nickName} */}
             </p>
             <Button onClick={logout} type={"link"}>退出</Button>
         </div>
