@@ -9,8 +9,9 @@ import { useNav } from '../../hooks/useNav'
 const { Header, Content, Footer } = Layout
 
 const MainLayout = () => {
-    const { loading } = useGetUserInfo()
-    useNav(loading)
+    const [loading,setLoading] = useState(false)
+    // const { loading } = useGetUserInfo()
+    // useNav(loading)
     return (
         <Layout>
             <Header className={styles.header}>
