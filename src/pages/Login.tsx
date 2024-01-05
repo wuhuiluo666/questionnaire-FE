@@ -48,14 +48,13 @@ const Login = () => {
         }
     })
     const onFinish = (values: any) => {
-        nav('/manage/list')
-        // const { username, password, remember } = values
-        // run(values)
-        // if (remember) {
-        //     rememberUser(username, password)
-        // } else {
-        //     deleteUser()
-        // }
+        const { username, password, remember } = values
+        run(values)
+        if (remember) {
+            rememberUser(username, password)
+        } else {
+            deleteUser()
+        }
     }
     useEffect(() => {
         const { username, password } = getUserInfo()
